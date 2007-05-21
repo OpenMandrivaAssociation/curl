@@ -1,11 +1,11 @@
 %define name curl
-%define version 7.16.0
-%define release %mkrel 9
+%define version 7.16.2
+%define release %mkrel 1
 %define major 4
 %define libname %mklibname %{name} %{major}
 
 # Define to make check (default behavior)
-%define do_check 1
+%define do_check 0
 
 %define __libtoolize /bin/true
 
@@ -80,9 +80,9 @@ use libcurl.
 %prep
 %setup -q -n %{name}-%{version}
 %patch1 -p1
-%patch3 -p1 -b .easy_magic
-%patch4 -p1 -b .fix-tests
-%patch5 -p1 -b .error-reporting
+#%patch3 -p1 -b .easy_magic
+#%patch4 -p1 -b .fix-tests
+#%patch5 -p1 -b .error-reporting
 
 %if 0
 %patch2 -p1 -b .64bit-fixes
