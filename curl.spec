@@ -1,5 +1,5 @@
 %define name curl
-%define version 7.16.3
+%define version 7.16.4
 %define release %mkrel 1
 %define major 4
 %define libname %mklibname %{name} %{major}
