@@ -27,6 +27,7 @@ Patch2:		curl-7.13.0-64bit-fixes.patch
 Patch3:		curl-7.16.0-easy_magic.patch
 Patch4:		curl-7.16.0-fix-tests.patch
 Patch5:		curl-7.16.0-error-reporting.patch
+Patch6:		%{name}-7.16.4-ftp-nopass.patch
 URL:		http://curl.haxx.se/
 Provides:	webfetch
 Requires:	%{libname} = %{epoch}:%{version}
@@ -85,6 +86,7 @@ use libcurl.
 #%patch3 -p1 -b .easy_magic
 #%patch4 -p1 -b .fix-tests
 #%patch5 -p1 -b .error-reporting
+%patch6 -p1 -b .nopass
 
 %if 0
 %patch2 -p1 -b .64bit-fixes
