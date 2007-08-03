@@ -1,6 +1,6 @@
 %define name curl
 %define version 7.16.4
-%define release %mkrel 1
+%define release %mkrel 2
 %define major 4
 %define libname %mklibname %{name} %{major}
 %define develname %mklibname %{name}-devel
