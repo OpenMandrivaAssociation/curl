@@ -5,7 +5,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Version:	7.17.1
-Release:	%mkrel 1
+Release:	%mkrel 2
 Epoch:		1
 License:	MIT
 Group:		Networking/Other
@@ -14,13 +14,11 @@ Source:		http://curl.haxx.se/download/%{name}-%{version}.tar.bz2
 Patch1:		curl-7.10.4-compat-location-trusted.patch
 Provides:	webfetch
 Requires:	%{libname} = %{epoch}:%{version}
-BuildRequires:	bison
 BuildRequires:	groff-for-man
 BuildRequires:	openssl-devel
 BuildRequires:	zlib-devel
 BuildRequires:	libidn-devel
-BuildRequires:	libssh-devel
-BuildRequires:	chrpath
+BuildRequires:	libssh2-devel
 # (misc) required for testing
 BuildRequires:	stunnel
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
@@ -82,20 +80,17 @@ Example files for %{name} development.
 	--with-zlib \
 	--with-libidn \
 	--with-ssh2 \
-	--with-random
+	--with-random \
+	--enable-hidden-symbols
 %make
 
-# (tpg) all checks are ok without ssh ones
-# check wants to connect/run sshd which is quite impossible
-#%check
-#make check
+# disable tests that want to connect/run sshd, which is quite impossible
+%check
+make test TEST_Q='-a -p !SCP !SFTP !SOCKS4 !SOCKS5'
 
 %install
 rm -rf %{buildroot}
 %makeinstall_std
-
-chrpath -d %{buildroot}%{_bindir}/%{name}
-chrpath -d %{buildroot}%{_libdir}/*.so*
 
 rm -rf docs/examples/.libs
 rm -rf docs/examples/.deps
