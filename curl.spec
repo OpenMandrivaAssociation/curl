@@ -123,7 +123,7 @@ rm -rf %{buildroot}
 %{_libdir}/libcurl*a
 %{_libdir}/pkgconfig/*.pc
 %{_mandir}/man1/curl-config.1*
-%attr(644,root,root)%{_mandir}/man3/*
+%{_mandir}/man3/*
 
 %files examples
 %defattr(-,root,root,644)
