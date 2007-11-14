@@ -5,7 +5,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Version:	7.17.1
-Release:	%mkrel 3
+Release:	%mkrel 4
 Epoch:		1
 License:	MIT
 Group:		Networking/Other
@@ -65,7 +65,7 @@ use libcurl.
 %package examples
 Summary:	Example files for %{name} development
 Group:		Development/C
-Requires:	%{develname} = %{version}-%{release}
+Requires:	%{develname} = %{epoch}:%{version}-%{release}
 
 %description examples
 Example files for %{name} development.
