@@ -79,7 +79,6 @@ Example files for %{name} development.
 %build
 %configure2_5x \
 	--with-ssl \
-	--with-gnutls=%{prefix} \
 	--with-zlib \
 	--with-libidn \
 	--with-ssh2 \
@@ -102,7 +101,7 @@ rm -rf docs/examples/.libs
 rm -rf docs/examples/.deps
 rm -rf docs/examples/*.o
 
-# (tpg) use rootverts certs
+# (tpg) use rootcerts's certificates
 find %{buildroot} -name ca-bundle.crt -exec rm -f '{}' \;
 
 %clean
