@@ -5,7 +5,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Version:	7.17.1
-Release:	%mkrel 4
+Release:	%mkrel 5
 Epoch:		1
 License:	MIT
 Group:		Networking/Other
@@ -19,8 +19,10 @@ BuildRequires:	openssl-devel
 BuildRequires:	zlib-devel
 BuildRequires:	libidn-devel
 BuildRequires:	libssh2-devel
+BuildRequires:	openldap-devel
 # (misc) required for testing
 BuildRequires:	stunnel
+Requires:	rootcerts
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
@@ -77,11 +79,15 @@ Example files for %{name} development.
 %build
 %configure2_5x \
 	--with-ssl \
+	--with-gnutls=%{prefix} \
 	--with-zlib \
 	--with-libidn \
 	--with-ssh2 \
 	--with-random \
-	--enable-hidden-symbols
+	--enable-hidden-symbols \
+	--enable-libgcc \
+	--enable-ldaps \
+	--with-ca-bundle=%{_sysconfdir}/pki/tls/certs/ca-bundle.crt
 %make
 
 # disable tests that want to connect/run sshd, which is quite impossible
@@ -96,6 +102,9 @@ rm -rf docs/examples/.libs
 rm -rf docs/examples/.deps
 rm -rf docs/examples/*.o
 
+# (tpg) use rootverts certs
+find %{buildroot} -name ca-bundle.crt -exec rm -f '{}' \;
+
 %clean
 rm -rf %{buildroot}
 
@@ -105,7 +114,6 @@ rm -rf %{buildroot}
 %files
 %defattr(-,root,root)
 %{_bindir}/curl
-%{_datadir}/curl
 %{_mandir}/man1/curl.1*
 
 %files -n %{libname}
