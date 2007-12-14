@@ -5,7 +5,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Version:	7.17.1
-Release:	%mkrel 5
+Release:	%mkrel 6
 Epoch:		1
 License:	MIT
 Group:		Networking/Other
@@ -20,9 +20,9 @@ BuildRequires:	zlib-devel
 BuildRequires:	libidn-devel
 BuildRequires:	libssh2-devel
 BuildRequires:	openldap-devel
+BuildRequires:	krb5-devel
 # (misc) required for testing
 BuildRequires:	stunnel
-Requires:	rootcerts
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
@@ -38,6 +38,7 @@ This version is compiled with SSL (https) support.
 %package -n %{libname}
 Summary:	A library of functions for file transfer
 Group:		Networking/Other
+Requires:	rootcerts
 
 %description -n %{libname}
 libcurl is a library of functions for sending and receiving files through
@@ -49,7 +50,7 @@ use libcurl.
 %package -n %{develname}
 Summary:	Header files and static libraries for libcurl
 Group:		Development/C
-Requires:	%{libname} = %{epoch}:%{version}
+Requires:	%{libname} = %{epoch}:%{version}-%{release}
 Provides:	%{name}-devel = %{epoch}:%{version}-%{release}
 Provides:	lib%{name}-devel = %{epoch}:%{version}-%{release}
 Provides:	libcurl%{major}-devel = %{epoch}:%{version}-%{release}
@@ -84,9 +85,13 @@ Example files for %{name} development.
 	--with-ssh2 \
 	--with-random \
 	--enable-hidden-symbols \
+	--enable-nonblocking \
+	--enable-thread \
+	--enable-crypto-auth \
 	--enable-libgcc \
 	--enable-ldaps \
-	--with-ca-bundle=%{_sysconfdir}/pki/tls/certs/ca-bundle.crt
+	--with-ca-bundle=%{_sysconfdir}/pki/tls/certs/ca-bundle.crt \
+	--with-gssapi=%{_prefix}
 %make
 
 # disable tests that want to connect/run sshd, which is quite impossible
@@ -101,7 +106,7 @@ rm -rf docs/examples/.libs
 rm -rf docs/examples/.deps
 rm -rf docs/examples/*.o
 
-# (tpg) use rootcerts's certificates
+# (tpg) use rootcerts's certificates #35917
 find %{buildroot} -name ca-bundle.crt -exec rm -f '{}' \;
 
 %clean
