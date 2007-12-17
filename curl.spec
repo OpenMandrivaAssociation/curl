@@ -23,7 +23,6 @@ BuildRequires:	openldap-devel
 BuildRequires:	krb5-devel
 # (misc) required for testing
 BuildRequires:	stunnel
-BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 
 %description
 curl is a client to get documents/files from servers, using any of the
