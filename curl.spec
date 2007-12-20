@@ -5,7 +5,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Version:	7.17.1
-Release:	%mkrel 6
+Release:	%mkrel 7
 Epoch:		1
 License:	MIT
 Group:		Networking/Other
@@ -23,6 +23,7 @@ BuildRequires:	openldap-devel
 BuildRequires:	krb5-devel
 # (misc) required for testing
 BuildRequires:	stunnel
+Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-root
 
 %description
 curl is a client to get documents/files from servers, using any of the
@@ -37,7 +38,9 @@ This version is compiled with SSL (https) support.
 %package -n %{libname}
 Summary:	A library of functions for file transfer
 Group:		Networking/Other
-Requires:	rootcerts
+%if %mdkversion >= 200700
+BuildRequires:  rootcerts >= 1:20070713.00
+%endif
 
 %description -n %{libname}
 libcurl is a library of functions for sending and receiving files through
