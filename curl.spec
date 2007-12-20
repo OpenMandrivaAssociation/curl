@@ -39,7 +39,7 @@ This version is compiled with SSL (https) support.
 Summary:	A library of functions for file transfer
 Group:		Networking/Other
 %if %mdkversion >= 200700
-BuildRequires:  rootcerts >= 1:20070713.00
+Requires:	rootcerts >= 1:20070713.00
 %endif
 
 %description -n %{libname}
