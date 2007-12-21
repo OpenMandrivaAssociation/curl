@@ -1,11 +1,11 @@
-%define major 4
-%define libname %mklibname %{name} %{major}
-%define develname %mklibname %{name}-devel
+%define major		4
+%define libname		%mklibname %{name} %{major}
+%define develname	%mklibname %{name} -d
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Version:	7.17.1
-Release:	%mkrel 7
+Release:	%mkrel 8
 Epoch:		1
 License:	MIT
 Group:		Networking/Other
