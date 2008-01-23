@@ -1,19 +1,22 @@
-%define major		4
-%define libname		%mklibname %{name} %{major}
-%define develname	%mklibname %{name} -d
+%define major 4
+%define libname %mklibname %{name} %{major}
+%define develname %mklibname %{name} -d
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Version:	7.17.1
 Release:	%mkrel 8
 Epoch:		1
-License:	MIT
+License:	BSD-like
 Group:		Networking/Other
 URL:		http://curl.haxx.se
 Source:		http://curl.haxx.se/download/%{name}-%{version}.tar.bz2
 Patch1:		curl-7.10.4-compat-location-trusted.patch
+Patch2:		curl-7.17.1-badsocket.patch
+Patch3:		curl-7.16.0-privlibs.patch
+Patch4:		curl-7.15.3-multilib.patch
 Provides:	webfetch
-Requires:	%{libname} = %{epoch}:%{version}
+Requires:	%{libname} = %{epoch}:%{version}-%{release}
 BuildRequires:	groff-for-man
 BuildRequires:	openssl-devel
 BuildRequires:	zlib-devel
@@ -56,7 +59,6 @@ Requires:	%{libname} = %{epoch}:%{version}-%{release}
 Provides:	%{name}-devel = %{epoch}:%{version}-%{release}
 Provides:	lib%{name}-devel = %{epoch}:%{version}-%{release}
 Provides:	libcurl%{major}-devel = %{epoch}:%{version}-%{release}
-Obsoletes:	%{name}-devel
 Obsoletes:	%mklibname %{name} 4 -d
 Provides:	%mklibname %{name} 4 -d
 
@@ -78,8 +80,13 @@ Example files for %{name} development.
 %prep
 %setup -q
 %patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
 
 %build
+./reconf
+
 %configure2_5x \
 	--with-ssl \
 	--with-zlib \
@@ -103,6 +110,8 @@ make test TEST_Q='-a -p !SCP !SFTP !SOCKS4 !SOCKS5'
 %install
 rm -rf %{buildroot}
 %makeinstall_std
+
+%multiarch_binaries %{buildroot}%{_bindir}/%{name}-config
 
 rm -rf docs/examples/.libs
 rm -rf docs/examples/.deps
@@ -132,6 +141,7 @@ rm -rf %{buildroot}
 %doc docs/BUGS docs/KNOWN_BUGS docs/CONTRIBUTE docs/FAQ CHANGES
 %doc docs/FEATURES docs/RESOURCES docs/TODO docs/THANKS docs/INTERNALS
 %{_bindir}/curl-config
+%{multiarch_bindir}/curl-config
 %{_libdir}/libcurl.so
 %{_includedir}/curl
 %{_libdir}/libcurl*a
