@@ -87,6 +87,8 @@ Example files for %{name} development.
 %build
 ./reconf
 
+%define _disable_ld_no_undefined 1
+
 %configure2_5x \
 	--with-ssl \
 	--with-zlib \
@@ -99,8 +101,10 @@ Example files for %{name} development.
 	--enable-crypto-auth \
 	--enable-libgcc \
 	--enable-ldaps \
+	--enable-ipv6 \
 	--with-ca-bundle=%{_sysconfdir}/pki/tls/certs/ca-bundle.crt \
 	--with-gssapi=%{_prefix}
+
 %make
 
 # disable tests that want to connect/run sshd, which is quite impossible
