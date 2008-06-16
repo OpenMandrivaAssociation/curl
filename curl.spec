@@ -5,7 +5,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Version:	7.18.2
-Release:	%mkrel 1
+Release:	%mkrel 2
 Epoch:		1
 License:	BSD-like
 Group:		Networking/Other
@@ -15,6 +15,8 @@ Patch1:		curl-7.10.4-compat-location-trusted.patch
 Patch2:		curl-7.17.1-badsocket.patch
 Patch3:		curl-7.16.0-privlibs.patch
 Patch4:		curl-7.15.3-multilib.patch
+# (Anssi 06/2008) Fix underlinking:
+Patch5:		curl-7.18.2-fix-underlinking.patch
 Provides:	webfetch
 Requires:	%{libname} = %{epoch}:%{version}-%{release}
 BuildRequires:	groff-for-man
@@ -83,11 +85,10 @@ Example files for %{name} development.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 ./reconf
-
-%define _disable_ld_no_undefined 1
 
 %configure2_5x \
 	--with-ssl \
