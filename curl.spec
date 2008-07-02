@@ -5,7 +5,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Version:	7.18.2
-Release:	%mkrel 2
+Release:	%mkrel 3
 Epoch:		1
 License:	BSD-like
 Group:		Networking/Other
@@ -120,6 +120,10 @@ make test TEST_Q='-a -p !SCP !SFTP !SOCKS4 !SOCKS5'
 %install
 rm -rf %{buildroot}
 %makeinstall_std
+
+# [july 2008] HACK. to be replaced by a real fix
+sed -i -e 's!-Wl,--as-needed!!' -e 's!-Wl,--no-undefined!!' %{buildroot}%{_bindir}/%{name}-config
+sed -i -e 's!-Wl,--as-needed!!' -e 's!-Wl,--no-undefined!!' %{buildroot}%{_libdir}/pkgconfig/*.pc
 
 %multiarch_binaries %{buildroot}%{_bindir}/%{name}-config
 
