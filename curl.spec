@@ -108,6 +108,7 @@ Example files for %{name} development.
 	--with-ca-bundle=%{_sysconfdir}/pki/tls/certs/ca-bundle.crt \
 	--with-gssapi=%{_prefix}
 
+# we don't want them in curl-examples:
 rm -r docs/examples/.deps
 
 %make
