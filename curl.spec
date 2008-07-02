@@ -17,6 +17,7 @@ Patch3:		curl-7.16.0-privlibs.patch
 Patch4:		curl-7.15.3-multilib.patch
 # (Anssi 06/2008) Fix underlinking:
 Patch5:		curl-7.18.2-fix-underlinking.patch
+Patch6:		curl-7.18.2-do-not-build-examples.patch
 Provides:	webfetch
 Requires:	%{libname} = %{epoch}:%{version}-%{release}
 BuildRequires:	groff-for-man
@@ -86,6 +87,7 @@ Example files for %{name} development.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 %build
 ./reconf
@@ -106,6 +108,8 @@ Example files for %{name} development.
 	--with-ca-bundle=%{_sysconfdir}/pki/tls/certs/ca-bundle.crt \
 	--with-gssapi=%{_prefix}
 
+rm -r docs/examples/.deps
+
 %make
 
 # disable tests that want to connect/run sshd, which is quite impossible
@@ -117,10 +121,6 @@ rm -rf %{buildroot}
 %makeinstall_std
 
 %multiarch_binaries %{buildroot}%{_bindir}/%{name}-config
-
-rm -rf docs/examples/.libs
-rm -rf docs/examples/.deps
-rm -rf docs/examples/*.o
 
 # (tpg) use rootcerts's certificates #35917
 find %{buildroot} -name ca-bundle.crt -exec rm -f '{}' \;
