@@ -4,19 +4,20 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	7.18.2
-Release:	%mkrel 3
+Version:	7.19.0
+Release:	%mkrel 1
 Epoch:		1
 License:	BSD-like
 Group:		Networking/Other
 URL:		http://curl.haxx.se
-Source:		http://curl.haxx.se/download/%{name}-%{version}.tar.bz2
+Source0:	http://curl.haxx.se/download/%{name}-%{version}.tar.bz2
+Source1:	%{SOURCE0}.asc
 Patch1:		curl-7.10.4-compat-location-trusted.patch
-Patch2:		curl-7.17.1-badsocket.patch
+Patch2:		curl-7.19.0-badsocket.patch
 Patch3:		curl-7.16.0-privlibs.patch
 Patch4:		curl-7.15.3-multilib.patch
 # (Anssi 06/2008) Fix underlinking:
-Patch5:		curl-7.18.2-fix-underlinking.patch
+Patch5:		curl-7.19.0-fix-underlinking.patch
 Patch6:		curl-7.18.2-do-not-build-examples.patch
 Provides:	webfetch
 Requires:	%{libname} = %{epoch}:%{version}-%{release}
@@ -29,7 +30,7 @@ BuildRequires:	openldap-devel
 BuildRequires:	krb5-devel
 # (misc) required for testing
 BuildRequires:	stunnel
-Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-root
+Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 curl is a client to get documents/files from servers, using any of the
