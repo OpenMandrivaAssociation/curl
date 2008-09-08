@@ -5,20 +5,19 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Version:	7.19.0
-Release:	%mkrel 1
+Release:	%mkrel 2
 Epoch:		1
 License:	BSD-like
 Group:		Networking/Other
 URL:		http://curl.haxx.se
 Source0:	http://curl.haxx.se/download/%{name}-%{version}.tar.bz2
 Source1:	%{SOURCE0}.asc
-Patch1:		curl-7.10.4-compat-location-trusted.patch
-Patch2:		curl-7.19.0-badsocket.patch
-Patch3:		curl-7.16.0-privlibs.patch
-Patch4:		curl-7.15.3-multilib.patch
+Patch1:		%{name}-7.10.4-compat-location-trusted.patch
+Patch3:		%{name}-7.16.0-privlibs.patch
+Patch4:		%{name}-7.15.3-multilib.patch
 # (Anssi 06/2008) Fix underlinking:
-Patch5:		curl-7.19.0-fix-underlinking.patch
-Patch6:		curl-7.18.2-do-not-build-examples.patch
+Patch5:		%{name}-7.19.0-fix-underlinking.patch
+Patch6:		%{name}-7.18.2-do-not-build-examples.patch
 Provides:	webfetch
 Requires:	%{libname} = %{epoch}:%{version}-%{release}
 BuildRequires:	groff-for-man
@@ -84,7 +83,6 @@ Example files for %{name} development.
 %prep
 %setup -q
 %patch1 -p1
-%patch2 -p1
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
