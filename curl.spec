@@ -4,8 +4,8 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	7.19.0
-Release:	%mkrel 3
+Version:	7.19.1
+Release:	%mkrel 1
 Epoch:		1
 License:	BSD-like
 Group:		Networking/Other
@@ -18,11 +18,6 @@ Patch4:		%{name}-7.15.3-multilib.patch
 # (Anssi 06/2008) Fix underlinking:
 Patch5:		%{name}-7.19.0-fix-underlinking.patch
 Patch6:		%{name}-7.18.2-do-not-build-examples.patch
-# From upstream bug #2154627: fix string comparison problem in Turkish
-# which was preventing webkit from correctly loading file:///
-# URLs in Turkish locale; this prevents MCC from rendering icons in
-# Turkish locale, Mandriva bug #44710. Backported by AdamW 2008/10
-Patch7:		curl-7.19.0-turkish.patch
 Provides:	webfetch
 Requires:	%{libname} = %{epoch}:%{version}-%{release}
 BuildRequires:	groff-for-man
@@ -92,7 +87,6 @@ Example files for %{name} development.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
-%patch7 -p1
 
 %build
 ./reconf
