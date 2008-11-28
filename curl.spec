@@ -18,17 +18,18 @@ Patch4:		%{name}-7.15.3-multilib.patch
 # (Anssi 06/2008) Fix underlinking:
 Patch5:		%{name}-7.19.0-fix-underlinking.patch
 Patch6:		%{name}-7.18.2-do-not-build-examples.patch
-Provides:	webfetch
-Requires:	%{libname} = %{epoch}:%{version}-%{release}
 BuildRequires:	groff-for-man
-BuildRequires:	openssl-devel
+BuildRequires:	gnutls-devel
 BuildRequires:	zlib-devel
 BuildRequires:	libidn-devel
 BuildRequires:	libssh2-devel
 BuildRequires:	openldap-devel
 BuildRequires:	krb5-devel
+BuildRequires:	c-ares-devel
 # (misc) required for testing
 BuildRequires:	stunnel
+Provides:	webfetch
+Requires:	%{libname} = %{epoch}:%{version}-%{release}
 Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
@@ -89,15 +90,18 @@ Example files for %{name} development.
 %patch6 -p1
 
 %build
-./reconf
+#./reconf
+autoreconf -fiv
 
 %configure2_5x \
-	--with-ssl \
+	--without-ssl \
+	--with-gnutls \
 	--with-zlib \
 	--with-libidn \
 	--with-ssh2 \
 	--with-random \
 	--enable-hidden-symbols \
+	--enable-optimize \
 	--enable-nonblocking \
 	--enable-thread \
 	--enable-crypto-auth \
@@ -105,7 +109,8 @@ Example files for %{name} development.
 	--enable-ldaps \
 	--enable-ipv6 \
 	--with-ca-bundle=%{_sysconfdir}/pki/tls/certs/ca-bundle.crt \
-	--with-gssapi=%{_prefix}
+	--with-gssapi=%{_prefix} \
+	--enable-ares
 
 # we don't want them in curl-examples:
 rm -r docs/examples/.deps
@@ -114,7 +119,7 @@ rm -r docs/examples/.deps
 
 # disable tests that want to connect/run sshd, which is quite impossible
 %check
-make test TEST_Q='-a -p !SCP !SFTP !SOCKS4 !SOCKS5'
+make test TEST_Q='-a -p -v !SCP !SFTP !SOCKS4 !SOCKS5 !TFTP !198'
 
 %install
 rm -rf %{buildroot}
