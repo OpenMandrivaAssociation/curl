@@ -28,6 +28,7 @@ BuildRequires:	krb5-devel
 BuildRequires:	c-ares-devel
 # (misc) required for testing
 BuildRequires:	stunnel
+BuildRequires:	libtool
 Provides:	webfetch
 Requires:	%{libname} = %{epoch}:%{version}-%{release}
 Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -115,15 +116,15 @@ autoreconf -fiv
 # we don't want them in curl-examples:
 rm -r docs/examples/.deps
 
-%make
+%make LIBTOOL=%_bindir/libtool
 
 # disable tests that want to connect/run sshd, which is quite impossible
 %check
-make test TEST_Q='-a -p -v !SCP !SFTP !SOCKS4 !SOCKS5 !TFTP !198'
+make test TEST_Q='-a -p -v !SCP !SFTP !SOCKS4 !SOCKS5 !TFTP !198' LIBTOOL=%_bindir/libtool
 
 %install
 rm -rf %{buildroot}
-%makeinstall_std
+%makeinstall_std LIBTOOL=%_bindir/libtool
 
 # [july 2008] HACK. to be replaced by a real fix
 sed -i -e 's!-Wl,--as-needed!!' -e 's!-Wl,--no-undefined!!' %{buildroot}%{_bindir}/%{name}-config
