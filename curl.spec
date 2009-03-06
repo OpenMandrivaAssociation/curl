@@ -4,7 +4,7 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	7.19.3
+Version:	7.19.4
 Release:	%mkrel 1
 Epoch:		1
 License:	BSD-like
@@ -28,7 +28,6 @@ BuildRequires:	krb5-devel
 BuildRequires:	c-ares-devel
 # (misc) required for testing
 BuildRequires:	stunnel
-BuildRequires:	libtool
 Provides:	webfetch
 Requires:	%{libname} = %{epoch}:%{version}-%{release}
 Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -116,15 +115,15 @@ autoreconf -fiv
 # we don't want them in curl-examples:
 rm -r docs/examples/.deps
 
-%make LIBTOOL=%_bindir/libtool
+%make 
 
 # disable tests that want to connect/run sshd, which is quite impossible
 %check
-make test TEST_Q='-a -p -v !SCP !SFTP !SOCKS4 !SOCKS5 !TFTP !198' LIBTOOL=%_bindir/libtool
+make test TEST_Q='-a -p -v !SCP !SFTP !SOCKS4 !SOCKS5 !TFTP !198' 
 
 %install
 rm -rf %{buildroot}
-%makeinstall_std LIBTOOL=%_bindir/libtool
+%makeinstall_std 
 
 # [july 2008] HACK. to be replaced by a real fix
 sed -i -e 's!-Wl,--as-needed!!' -e 's!-Wl,--no-undefined!!' %{buildroot}%{_bindir}/%{name}-config
