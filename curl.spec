@@ -5,7 +5,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Version:	7.19.5
-Release:	%mkrel 2
+Release:	%mkrel 3
 Epoch:		1
 License:	BSD-like
 Group:		Networking/Other
