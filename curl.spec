@@ -4,8 +4,8 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	7.19.5
-Release:	%mkrel 3
+Version:	7.19.6
+Release:	%mkrel 1
 Epoch:		1
 License:	BSD-like
 Group:		Networking/Other
@@ -18,7 +18,6 @@ Patch4:		%{name}-7.15.3-multilib.patch
 # (Anssi 06/2008) Fix underlinking:
 Patch5:		%{name}-7.19.0-fix-underlinking.patch
 Patch6:		%{name}-7.18.2-do-not-build-examples.patch
-Patch7:		curl-7.19.5-gnutls-2.8.patch
 BuildRequires:	groff-for-man
 BuildRequires:	gnutls-devel
 BuildRequires:	zlib-devel
@@ -89,7 +88,6 @@ Example files for %{name} development.
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
-%patch7 -p0
 
 %build
 #./reconf
