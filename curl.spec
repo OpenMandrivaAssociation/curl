@@ -5,7 +5,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Version:	7.19.6
-Release:	%mkrel 1
+Release:	%mkrel 2
 Epoch:		1
 License:	BSD-like
 Group:		Networking/Other
@@ -25,7 +25,7 @@ BuildRequires:	libidn-devel
 BuildRequires:	libssh2-devel
 BuildRequires:	openldap-devel
 BuildRequires:	krb5-devel
-BuildRequires:	c-ares-devel
+#BuildRequires:	c-ares-devel
 # (misc) required for testing
 BuildRequires:	stunnel
 Provides:	webfetch
@@ -110,7 +110,7 @@ autoreconf -fiv
 	--enable-ipv6 \
 	--with-ca-bundle=%{_sysconfdir}/pki/tls/certs/ca-bundle.crt \
 	--with-gssapi=%{_prefix} \
-	--enable-ares
+	--disable-ares
 
 # we don't want them in curl-examples:
 rm -r docs/examples/.deps
