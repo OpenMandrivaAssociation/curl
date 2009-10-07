@@ -5,7 +5,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Version:	7.19.6
-Release:	%mkrel 2
+Release:	%mkrel 3
 Epoch:		1
 License:	BSD-like
 Group:		Networking/Other
@@ -19,7 +19,7 @@ Patch4:		%{name}-7.15.3-multilib.patch
 Patch5:		%{name}-7.19.0-fix-underlinking.patch
 Patch6:		%{name}-7.18.2-do-not-build-examples.patch
 BuildRequires:	groff-for-man
-BuildRequires:	gnutls-devel
+BuildRequires:	openssl-devel
 BuildRequires:	zlib-devel
 BuildRequires:	libidn-devel
 BuildRequires:	libssh2-devel
@@ -94,8 +94,8 @@ Example files for %{name} development.
 autoreconf -fiv
 
 %configure2_5x \
-	--without-ssl \
-	--with-gnutls \
+	--with-ssl \
+	--without-gnutls \
 	--with-zlib \
 	--with-libidn \
 	--with-ssh2 \
