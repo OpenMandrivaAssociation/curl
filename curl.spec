@@ -4,13 +4,13 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	7.19.6
-Release:	%mkrel 3
+Version:	7.19.7
+Release:	%mkrel 1
 Epoch:		1
 License:	BSD-like
 Group:		Networking/Other
 URL:		http://curl.haxx.se
-Source0:	http://curl.haxx.se/download/%{name}-%{version}.tar.bz2
+Source0:	http://curl.haxx.se/download/%{name}-%{version}.tar.lzma
 Source1:	%{SOURCE0}.asc
 Patch1:		%{name}-7.10.4-compat-location-trusted.patch
 Patch3:		%{name}-7.16.0-privlibs.patch
