@@ -4,8 +4,8 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	7.20.1
-Release:	%mkrel 2
+Version:	7.21.0
+Release:	%mkrel 1
 Epoch:		1
 License:	BSD-like
 Group:		Networking/Other
@@ -15,8 +15,6 @@ Source1:	%{SOURCE0}.asc
 Patch1:		%{name}-7.20.0-compat-location-trusted.patch
 Patch3:		%{name}-7.20.0-privlibs.patch
 Patch4:		%{name}-7.15.3-multilib.patch
-# (Anssi 06/2008) Fix underlinking:
-Patch5:		%{name}-7.19.0-fix-underlinking.patch
 Patch6:		%{name}-7.18.2-do-not-build-examples.patch
 BuildRequires:	groff-for-man
 BuildRequires:	openssl-devel
@@ -86,11 +84,9 @@ Example files for %{name} development.
 %patch1 -p0
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
 %patch6 -p1
 
 %build
-#./reconf
 autoreconf -fiv
 
 %configure2_5x \
@@ -115,7 +111,7 @@ autoreconf -fiv
 # we don't want them in curl-examples:
 rm -r docs/examples/.deps
 
-%make 
+%make
 
 # disable tests that want to connect/run sshd, which is quite impossible
 %check
