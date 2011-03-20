@@ -12,7 +12,6 @@ Group:		Networking/Other
 URL:		http://curl.haxx.se
 Source0:	http://curl.haxx.se/download/%{name}-%{version}.tar.lzma
 Source1:	http://curl.haxx.se/download/%{name}-%{version}.tar.lzma.asc
-Patch1:		%{name}-7.20.0-compat-location-trusted.patch
 Patch3:		%{name}-7.20.0-privlibs.patch
 Patch4:		%{name}-7.15.3-multilib.patch
 Patch6:		%{name}-7.18.2-do-not-build-examples.patch
@@ -81,7 +80,6 @@ Example files for %{name} development.
 
 %prep
 %setup -q
-%patch1 -p0
 %patch3 -p1
 %patch4 -p1
 %patch6 -p1
