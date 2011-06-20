@@ -5,7 +5,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Version:	7.21.6
-Release:	%mkrel 1
+Release:	%mkrel 2
 Epoch:		1
 License:	BSD-like
 Group:		Networking/Other
@@ -127,6 +127,10 @@ sed -i -e 's!-Wl,--as-needed!!' -e 's!-Wl,--no-undefined!!' %{buildroot}%{_libdi
 
 # (tpg) use rootcerts's certificates #35917
 find %{buildroot} -name ca-bundle.crt -exec rm -f '{}' \;
+
+%if "%{_lib}" == "lib64"
+perl -pi -e "s|-L/usr/lib\b|-L%{_libdir}|g" %{buildroot}%{_libdir}/*.la
+%endif
 
 %clean
 rm -rf %{buildroot}
