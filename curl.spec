@@ -5,7 +5,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Version:	7.23.0
-Release:	%mkrel 1
+Release:	%mkrel 2
 Epoch:		1
 License:	BSD-like
 Group:		Networking/Other
@@ -128,19 +128,14 @@ sed -i -e 's!-Wl,--as-needed!!' -e 's!-Wl,--no-undefined!!' %{buildroot}%{_libdi
 # (tpg) use rootcerts's certificates #35917
 find %{buildroot} -name ca-bundle.crt -exec rm -f '{}' \;
 
-%if "%{_lib}" == "lib64"
-perl -pi -e "s|-L/usr/lib\b|-L%{_libdir}|g" %{buildroot}%{_libdir}/*.la
-%endif
+# nuke the libtool *.la file
+rm -f %{buildroot}%{_libdir}/*.la
+
+# nuke the static lib
+rm -f %{buildroot}%{_libdir}/*.a
 
 %clean
 rm -rf %{buildroot}
-
-%if %mdkversion < 200900
-%post -n %{libname} -p /sbin/ldconfig
-%endif
-%if %mdkversion < 200900
-%postun -n %{libname} -p /sbin/ldconfig
-%endif
 
 %files
 %defattr(-,root,root)
@@ -160,7 +155,6 @@ rm -rf %{buildroot}
 %{multiarch_bindir}/curl-config
 %{_libdir}/libcurl.so
 %{_includedir}/curl
-%{_libdir}/libcurl*a
 %{_libdir}/pkgconfig/*.pc
 %{_mandir}/man1/curl-config.1*
 %{_mandir}/man3/*
