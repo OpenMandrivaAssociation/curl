@@ -4,8 +4,8 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	7.23.0
-Release:	%mkrel 2
+Version:	7.23.1
+Release:	%mkrel 1
 Epoch:		1
 License:	BSD-like
 Group:		Networking/Other
@@ -27,7 +27,6 @@ BuildRequires:	krb5-devel
 BuildRequires:	stunnel
 Provides:	webfetch
 Requires:	%{libname} = %{epoch}:%{version}-%{release}
-Buildroot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
 curl is a client to get documents/files from servers, using any of the
