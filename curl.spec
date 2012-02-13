@@ -4,7 +4,7 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	7.23.1
+Version:	7.24.0
 Release:	%mkrel 1
 Epoch:		1
 License:	BSD-like
@@ -106,21 +106,21 @@ autoreconf -fiv
 	--disable-ares
 
 # we don't want them in curl-examples:
-rm -r docs/examples/.deps
+%__rm -r docs/examples/.deps
 
 %make
 
 # disable tests that want to connect/run sshd, which is quite impossible
 %check
-make test TEST_Q='-a -p -v !SCP !SFTP !SOCKS4 !SOCKS5 !TFTP !198' 
+%__make test TEST_Q='-a -p -v !SCP !SFTP !SOCKS4 !SOCKS5 !TFTP !198' 
 
 %install
-rm -rf %{buildroot}
+%__rm -rf %{buildroot}
 %makeinstall_std 
 
 # [july 2008] HACK. to be replaced by a real fix
-sed -i -e 's!-Wl,--as-needed!!' -e 's!-Wl,--no-undefined!!' %{buildroot}%{_bindir}/%{name}-config
-sed -i -e 's!-Wl,--as-needed!!' -e 's!-Wl,--no-undefined!!' %{buildroot}%{_libdir}/pkgconfig/*.pc
+%__sed -i -e 's!-Wl,--as-needed!!' -e 's!-Wl,--no-undefined!!' %{buildroot}%{_bindir}/%{name}-config
+%__sed -i -e 's!-Wl,--as-needed!!' -e 's!-Wl,--no-undefined!!' %{buildroot}%{_libdir}/pkgconfig/*.pc
 
 %multiarch_binaries %{buildroot}%{_bindir}/%{name}-config
 
@@ -128,13 +128,13 @@ sed -i -e 's!-Wl,--as-needed!!' -e 's!-Wl,--no-undefined!!' %{buildroot}%{_libdi
 find %{buildroot} -name ca-bundle.crt -exec rm -f '{}' \;
 
 # nuke the libtool *.la file
-rm -f %{buildroot}%{_libdir}/*.la
+%__rm -f %{buildroot}%{_libdir}/*.la
 
 # nuke the static lib
-rm -f %{buildroot}%{_libdir}/*.a
+%__rm -f %{buildroot}%{_libdir}/*.a
 
 %clean
-rm -rf %{buildroot}
+%__rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
