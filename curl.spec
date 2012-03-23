@@ -4,7 +4,7 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	7.24.0
+Version:	7.25.0
 Release:	%mkrel 1
 Epoch:		1
 License:	BSD-like
@@ -79,9 +79,9 @@ Example files for %{name} development.
 
 %prep
 %setup -q
-%patch3 -p1
-%patch4 -p1
-%patch6 -p1
+%patch3 -p1 -b .privlib~
+%patch4 -p1 -b .multilib~
+%patch6 -p1 -b .examples~
 
 %build
 autoreconf -fiv
