@@ -4,7 +4,7 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	7.25.0
+Version:	7.26.0
 Release:	%mkrel 1
 Epoch:		1
 License:	BSD-like
@@ -14,7 +14,7 @@ Source0:	http://curl.haxx.se/download/%{name}-%{version}.tar.lzma
 Source1:	http://curl.haxx.se/download/%{name}-%{version}.tar.lzma.asc
 Patch3:		%{name}-7.21.5-privlibs.patch
 Patch4:		%{name}-7.15.3-multilib.patch
-Patch6:		%{name}-7.18.2-do-not-build-examples.patch
+Patch6:		%{name}-7.26.0-do-not-build-examples.patch
 BuildRequires:	groff-for-man
 BuildRequires:	openssl-devel
 BuildRequires:	zlib-devel
@@ -26,7 +26,7 @@ BuildRequires:	krb5-devel
 # (misc) required for testing
 BuildRequires:	stunnel
 Provides:	webfetch
-Requires:	%{libname} = %{epoch}:%{version}-%{release}
+Requires:	%{libname} = %{EVRD}
 
 %description
 curl is a client to get documents/files from servers, using any of the
@@ -41,9 +41,7 @@ This version is compiled with SSL (https) support.
 %package -n %{libname}
 Summary:	A library of functions for file transfer
 Group:		Networking/Other
-%if %mdkversion >= 200700
 Requires:	rootcerts >= 1:20070713.00
-%endif
 
 %description -n %{libname}
 libcurl is a library of functions for sending and receiving files through
@@ -55,10 +53,10 @@ use libcurl.
 %package -n %{develname}
 Summary:	Header files and static libraries for libcurl
 Group:		Development/C
-Requires:	%{libname} = %{epoch}:%{version}-%{release}
-Provides:	%{name}-devel = %{epoch}:%{version}-%{release}
-Provides:	lib%{name}-devel = %{epoch}:%{version}-%{release}
-Provides:	libcurl%{major}-devel = %{epoch}:%{version}-%{release}
+Requires:	%{libname} = %{EVRD}
+Provides:	%{name}-devel = %{EVRD}
+Provides:	lib%{name}-devel = %{EVRD}
+Provides:	libcurl%{major}-devel = %{EVRD}
 Obsoletes:	%mklibname %{name} 4 -d
 Provides:	%mklibname %{name} 4 -d
 
@@ -72,7 +70,7 @@ use libcurl.
 %package examples
 Summary:	Example files for %{name} development
 Group:		Development/C
-Requires:	%{develname} = %{epoch}:%{version}-%{release}
+Requires:	%{develname} = %{EVRD}
 
 %description examples
 Example files for %{name} development.
@@ -127,37 +125,36 @@ autoreconf -fiv
 # (tpg) use rootcerts's certificates #35917
 find %{buildroot} -name ca-bundle.crt -exec rm -f '{}' \;
 
-# nuke the libtool *.la file
-%__rm -f %{buildroot}%{_libdir}/*.la
-
 # nuke the static lib
 %__rm -f %{buildroot}%{_libdir}/*.a
+
+# we don't package mk-ca-bundle so we don't need man for it
+%__rm -f %{buildroot}%{_mandir}/man1/mk-ca-bundle.1*
 
 %clean
 %__rm -rf %{buildroot}
 
 %files
-%defattr(-,root,root)
 %{_bindir}/curl
 %{_mandir}/man1/curl.1*
 
 %files -n %{libname}
-%defattr(-,root,root)
 %{_libdir}/*.so.%{major}*
 
 %files -n %{develname}
-%defattr(-,root,root)
 %docdir docs/
 %doc docs/BUGS docs/KNOWN_BUGS docs/CONTRIBUTE docs/FAQ CHANGES
 %doc docs/FEATURES docs/RESOURCES docs/TODO docs/THANKS docs/INTERNALS
 %{_bindir}/curl-config
 %{multiarch_bindir}/curl-config
 %{_libdir}/libcurl.so
+%if %{mdvver} < 201200
+%{_libdir}/libcurl.la
+%endif
 %{_includedir}/curl
 %{_libdir}/pkgconfig/*.pc
 %{_mandir}/man1/curl-config.1*
 %{_mandir}/man3/*
 
 %files examples
-%defattr(-,root,root,644)
 %doc docs/examples
