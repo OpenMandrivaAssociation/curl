@@ -4,16 +4,16 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	7.26.0
-Release:	%mkrel 1
+Version:	7.27.0
+Release:	1
 Epoch:		1
 License:	BSD-like
 Group:		Networking/Other
 URL:		http://curl.haxx.se
 Source0:	http://curl.haxx.se/download/%{name}-%{version}.tar.lzma
 Source1:	http://curl.haxx.se/download/%{name}-%{version}.tar.lzma.asc
-Patch3:		%{name}-7.21.5-privlibs.patch
-Patch4:		%{name}-7.15.3-multilib.patch
+Patch3:		%{name}-7.27.0-privlibs.patch
+Patch4:		%{name}-7.26.0-multilib.patch
 Patch6:		%{name}-7.26.0-do-not-build-examples.patch
 BuildRequires:	groff-for-man
 BuildRequires:	openssl-devel
@@ -57,7 +57,7 @@ Requires:	%{libname} = %{EVRD}
 Provides:	%{name}-devel = %{EVRD}
 Provides:	lib%{name}-devel = %{EVRD}
 Provides:	libcurl%{major}-devel = %{EVRD}
-Obsoletes:	%mklibname %{name} 4 -d
+Obsoletes:	%{mklibname %{name} 4 -d} < %{version}
 Provides:	%mklibname %{name} 4 -d
 
 %description -n %{develname}
@@ -70,7 +70,8 @@ use libcurl.
 %package examples
 Summary:	Example files for %{name} development
 Group:		Development/C
-Requires:	%{develname} = %{EVRD}
+Requires:       %{name}-devel = %{epoch}:%{version}-%{release}
+BuildArch:	noarch
 
 %description examples
 Example files for %{name} development.
@@ -85,9 +86,13 @@ Example files for %{name} development.
 autoreconf -fiv
 
 %configure2_5x \
+%if %{mdvver} >= 201200
+	--disable-static \
+%endif
 	--with-ssl \
 	--without-gnutls \
 	--with-zlib \
+	--with-lber-lib=lber \
 	--with-libidn \
 	--with-ssh2 \
 	--with-random \
@@ -104,39 +109,36 @@ autoreconf -fiv
 	--disable-ares
 
 # we don't want them in curl-examples:
-%__rm -r docs/examples/.deps
+rm -r docs/examples/.deps
 
 %make
 
 # disable tests that want to connect/run sshd, which is quite impossible
 %check
-%__make test TEST_Q='-a -p -v !SCP !SFTP !SOCKS4 !SOCKS5 !TFTP !198' 
+make test TEST_Q='-a -p -v !SCP !SFTP !SOCKS4 !SOCKS5 !TFTP !198' 
 
 %install
-%__rm -rf %{buildroot}
-%makeinstall_std 
+%makeinstall_std
 
 # [july 2008] HACK. to be replaced by a real fix
-%__sed -i -e 's!-Wl,--as-needed!!' -e 's!-Wl,--no-undefined!!' %{buildroot}%{_bindir}/%{name}-config
-%__sed -i -e 's!-Wl,--as-needed!!' -e 's!-Wl,--no-undefined!!' %{buildroot}%{_libdir}/pkgconfig/*.pc
+sed -i -e 's!-Wl,--as-needed!!' -e 's!-Wl,--no-undefined!!' %{buildroot}%{_bindir}/%{name}-config
+sed -i -e 's!-Wl,--as-needed!!' -e 's!-Wl,--no-undefined!!' %{buildroot}%{_libdir}/pkgconfig/*.pc
 
 %multiarch_binaries %{buildroot}%{_bindir}/%{name}-config
 
 # (tpg) use rootcerts's certificates #35917
 find %{buildroot} -name ca-bundle.crt -exec rm -f '{}' \;
 
-# nuke the static lib
-%__rm -f %{buildroot}%{_libdir}/*.a
-
 # we don't package mk-ca-bundle so we don't need man for it
-%__rm -f %{buildroot}%{_mandir}/man1/mk-ca-bundle.1*
+rm -f %{buildroot}%{_mandir}/man1/mk-ca-bundle.1*
 
-%clean
-%__rm -rf %{buildroot}
+# nuke the static lib
+rm -f %{buildroot}%{_libdir}/*.a
 
 %files
 %{_bindir}/curl
 %{_mandir}/man1/curl.1*
+%{_mandir}/man1/mk-ca-bundle.1*
 
 %files -n %{libname}
 %{_libdir}/*.so.%{major}*
