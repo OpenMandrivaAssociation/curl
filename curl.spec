@@ -138,7 +138,6 @@ rm -f %{buildroot}%{_libdir}/*.a
 %files
 %{_bindir}/curl
 %{_mandir}/man1/curl.1*
-%{_mandir}/man1/mk-ca-bundle.1*
 
 %files -n %{libname}
 %{_libdir}/*.so.%{major}*
