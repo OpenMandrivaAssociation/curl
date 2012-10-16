@@ -4,7 +4,7 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	7.27.0
+Version:	7.28.0
 Release:	1
 Epoch:		1
 License:	BSD-like
@@ -16,10 +16,10 @@ Patch3:		%{name}-7.27.0-privlibs.patch
 Patch4:		%{name}-7.26.0-multilib.patch
 Patch6:		%{name}-7.26.0-do-not-build-examples.patch
 BuildRequires:	groff-for-man
-BuildRequires:	openssl-devel
-BuildRequires:	zlib-devel
-BuildRequires:	libidn-devel
-BuildRequires:	libssh2-devel
+BuildRequires:	pkgconfig(openssl)
+BuildRequires:	pkgconfig(zlib)
+BuildRequires:	pkgconfig(libidn)
+BuildRequires:	pkgconfig(libssh2)
 BuildRequires:	openldap-devel
 BuildRequires:	krb5-devel
 #BuildRequires:	c-ares-devel
