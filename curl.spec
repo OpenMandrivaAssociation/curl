@@ -4,7 +4,7 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	7.28.0
+Version:	7.28.1
 Release:	1
 Epoch:		1
 License:	BSD-like
