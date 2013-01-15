@@ -12,6 +12,7 @@ Group:		Networking/Other
 URL:		http://curl.haxx.se
 Source0:	http://curl.haxx.se/download/%{name}-%{version}.tar.lzma
 Source1:	http://curl.haxx.se/download/%{name}-%{version}.tar.lzma.asc
+Patch2:		curl-7.28.1-automake-1.13.patch
 Patch3:		%{name}-7.27.0-privlibs.patch
 Patch4:		%{name}-7.26.0-multilib.patch
 Patch6:		%{name}-7.26.0-do-not-build-examples.patch
@@ -78,6 +79,7 @@ Example files for %{name} development.
 
 %prep
 %setup -q
+%patch2 -p1 -b .am113~
 %patch3 -p1 -b .privlib~
 %patch4 -p1 -b .multilib~
 %patch6 -p1 -b .examples~

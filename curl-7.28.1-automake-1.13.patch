@@ -1,0 +1,11 @@
+--- curl-7.28.1/configure.ac.bero	2013-01-15 19:21:35.402894454 +0100
++++ curl-7.28.1/configure.ac	2013-01-15 19:21:42.336811134 +0100
+@@ -35,7 +35,7 @@ This configure script may be copied, dis
+ terms of the curl license; see COPYING for more details])
+ 
+ AC_CONFIG_SRCDIR([lib/urldata.h])
+-AM_CONFIG_HEADER(lib/curl_config.h include/curl/curlbuild.h)
++AC_CONFIG_HEADERS([lib/curl_config.h include/curl/curlbuild.h])
+ AC_CONFIG_MACRO_DIR([m4])
+ AM_MAINTAINER_MODE
+ 
