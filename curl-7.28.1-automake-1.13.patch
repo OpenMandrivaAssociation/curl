@@ -1,5 +1,13 @@
 --- curl-7.28.1/configure.ac.bero	2013-01-15 19:21:35.402894454 +0100
 +++ curl-7.28.1/configure.ac	2013-01-15 19:21:42.336811134 +0100
+@@ -27,6 +27,7 @@ dnl We don't know the version number "st
+ AC_INIT([curl], [-], [a suitable curl mailing list: http://curl.haxx.se/mail/])
+ 
+ XC_OVR_ZZ50
++XC_OVR_ZZ60
+ CURL_OVERRIDE_AUTOCONF
+ 
+ dnl configure script copyright
 @@ -35,7 +35,7 @@ This configure script may be copied, dis
  terms of the curl license; see COPYING for more details])
  
@@ -9,3 +17,28 @@
  AC_CONFIG_MACRO_DIR([m4])
  AM_MAINTAINER_MODE
  
+--- curl-7.28.1/m4/curl-override.m4.bero	2013-01-17 17:27:18.664668323 +0100
++++ curl-7.28.1/m4/curl-override.m4	2013-01-17 17:27:30.712529729 +0100
+@@ -88,13 +88,3 @@ m4_define([$0],[])])
+ m4_defun([_LT_AC_LIBTOOL_SYS_PATH_SEPARATOR],
+ [CURL_CHECK_PATH_SEPARATOR
+ m4_define([$0],[])])
+-
+-dnl Override Autoconf's AC_CONFIG_MACRO_DIR (DIR)
+-dnl -------------------------------------------------
+-dnl This is an emulation of Autoconf's 2.61 macro.
+-dnl This is done to use fixed macro across Autoconf
+-dnl versions, and avoid warnings from modern libtool
+-dnl which traces usage of this macro.
+-
+-AC_DEFUN([AC_CONFIG_MACRO_DIR],[:])
+-
+--- curl-7.28.1/m4/zz60-xc-ovr.m4.bero	2013-01-17 17:27:36.747460317 +0100
++++ curl-7.28.1/m4/zz60-xc-ovr.m4	2013-01-17 17:28:59.903503825 +0100
+@@ -0,0 +1,6 @@
++m4_ifdef([AC_CONFIG_MACRO_DIR],
++	[m4_undefine([AC_CONFIG_MACRO_DIR])])
++m4_define([AC_CONFIG_MACRO_DIR],[])
++AC_DEFUN([XC_OVR_ZZ60],
++	[AC_BEFORE([$0],[AC_PROG_LIBTOOL])
++	 AC_BEFORE([$0],[AM_INIT_AUTOMAKE])])
