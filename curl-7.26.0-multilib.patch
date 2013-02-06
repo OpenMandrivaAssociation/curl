@@ -1,6 +1,6 @@
---- curl-7.26.0/curl-config.in.orig	2012-03-16 21:42:16.000000000 +0000
-+++ curl-7.26.0/curl-config.in	2012-05-27 22:37:10.000000000 +0000
-@@ -74,7 +74,7 @@
+--- curl-7.29.0/curl-config.in.multilib~	2012-12-11 23:32:22.000000000 +0100
++++ curl-7.29.0/curl-config.in	2013-02-06 20:25:52.822053653 +0100
+@@ -75,7 +75,7 @@ while test $# -gt 0; do
  	;;
  
      --cc)
@@ -9,7 +9,7 @@
  	;;
  
      --prefix)
-@@ -136,16 +136,7 @@
+@@ -142,16 +142,7 @@ while test $# -gt 0; do
         	;;
  
      --libs)
@@ -19,11 +19,11 @@
 -	   CURLLIBDIR=""
 -	fi
 -	if test "X@REQUIRE_LIB_DEPS@" = "Xyes"; then
--	  echo ${CURLLIBDIR}-lcurl @LIBCURL_LIBS@ @LIBS@
+-	  echo ${CURLLIBDIR}-lcurl @LIBCURL_LIBS@
 -	else
--	  echo ${CURLLIBDIR}-lcurl @LIBS@
+-	  echo ${CURLLIBDIR}-lcurl
 -	fi
-+	pkg-config libcurl --libs
++        pkg-config libcurl --libs
  	;;
  
      --static-libs)

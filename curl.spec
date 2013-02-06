@@ -4,16 +4,14 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	7.28.1
-Release:	2
+Version:	7.29.0
+Release:	1
 Epoch:		1
 License:	BSD-like
 Group:		Networking/Other
 URL:		http://curl.haxx.se
 Source0:	http://curl.haxx.se/download/%{name}-%{version}.tar.lzma
 Source1:	http://curl.haxx.se/download/%{name}-%{version}.tar.lzma.asc
-Patch2:		curl-7.28.1-automake-1.13.patch
-Patch3:		%{name}-7.27.0-privlibs.patch
 Patch4:		%{name}-7.26.0-multilib.patch
 Patch6:		%{name}-7.26.0-do-not-build-examples.patch
 BuildRequires:	groff-for-man
@@ -79,8 +77,6 @@ Example files for %{name} development.
 
 %prep
 %setup -q
-%patch2 -p1 -b .am113~
-%patch3 -p1 -b .privlib~
 %patch4 -p1 -b .multilib~
 %patch6 -p1 -b .examples~
 
