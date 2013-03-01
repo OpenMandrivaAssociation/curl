@@ -106,10 +106,12 @@ autoreconf -fiv
 	--with-gssapi=%{_prefix} \
 	--disable-ares
 
-# we don't want them in curl-examples:
-rm -r docs/examples/.deps
 
 %make
+
+# we don't want them in curl-examples:
+rm -r docs/examples/.deps ||:
+
 
 # disable tests that want to connect/run sshd, which is quite impossible
 %check
