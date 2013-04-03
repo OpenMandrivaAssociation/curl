@@ -1,34 +1,31 @@
-%define major 4
+%define major	4
 %define libname %mklibname %{name} %{major}
-%define develname %mklibname %{name} -d
+%define devname %mklibname %{name} -d
 %ifarch aarch64
-%define debug_package	%nil
+%define debug_package	%{nil}
 %endif
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	7.29.0
-Release:	2
 Epoch:		1
+Version:	7.29.0
+Release:	3
 License:	BSD-like
 Group:		Networking/Other
-URL:		http://curl.haxx.se
+Url:		http://curl.haxx.se
 Source0:	http://curl.haxx.se/download/%{name}-%{version}.tar.lzma
 Source1:	http://curl.haxx.se/download/%{name}-%{version}.tar.lzma.asc
 Patch4:		%{name}-7.26.0-multilib.patch
 Patch6:		%{name}-7.26.0-do-not-build-examples.patch
-BuildRequires:	groff-for-man
+BuildRequires:	groff-base
+BuildRequires:	stunnel
+BuildRequires:	krb5-devel
+BuildRequires:	openldap-devel
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(libidn)
 BuildRequires:	pkgconfig(libssh2)
-BuildRequires:	openldap-devel
-BuildRequires:	krb5-devel
-#BuildRequires:	c-ares-devel
-# (misc) required for testing
-BuildRequires:	stunnel
 Provides:	webfetch
-Requires:	%{libname} = %{EVRD}
 
 %description
 curl is a client to get documents/files from servers, using any of the
@@ -52,17 +49,13 @@ various protocols, including http and ftp.
 You should install this package if you plan to use any applications that
 use libcurl.
 
-%package -n %{develname}
+%package -n %{devname}
 Summary:	Header files and static libraries for libcurl
 Group:		Development/C
 Requires:	%{libname} = %{EVRD}
 Provides:	%{name}-devel = %{EVRD}
-Provides:	lib%{name}-devel = %{EVRD}
-Provides:	libcurl%{major}-devel = %{EVRD}
-Obsoletes:	%{mklibname %{name} 4 -d} < %{version}
-Provides:	%mklibname %{name} 4 -d
 
-%description -n %{develname}
+%description -n %{devname}
 libcurl is a library of functions for sending and receiving files through
 various protocols, including http and ftp.
 
@@ -72,7 +65,7 @@ use libcurl.
 %package examples
 Summary:	Example files for %{name} development
 Group:		Development/C
-Requires:       %{name}-devel = %{epoch}:%{version}-%{release}
+Requires:       %{name}-devel = %{EVRD}
 BuildArch:	noarch
 
 %description examples
@@ -80,16 +73,13 @@ Example files for %{name} development.
 
 %prep
 %setup -q
-%patch4 -p1 -b .multilib~
-%patch6 -p1 -b .examples~
+%apply_patches
 
 %build
 autoreconf -fiv
 
 %configure2_5x \
-%if %{mdvver} >= 201200
 	--disable-static \
-%endif
 	--with-ssl \
 	--without-gnutls \
 	--with-zlib \
@@ -115,7 +105,6 @@ autoreconf -fiv
 # we don't want them in curl-examples:
 rm -r docs/examples/.deps ||:
 
-
 # disable tests that want to connect/run sshd, which is quite impossible
 #%check
 # Some tests fail at random inside ABF (timeouts?), but work in local builds.
@@ -137,26 +126,20 @@ find %{buildroot} -name ca-bundle.crt -exec rm -f '{}' \;
 # we don't package mk-ca-bundle so we don't need man for it
 rm -f %{buildroot}%{_mandir}/man1/mk-ca-bundle.1*
 
-# nuke the static lib
-rm -f %{buildroot}%{_libdir}/*.a
-
 %files
 %{_bindir}/curl
 %{_mandir}/man1/curl.1*
 
 %files -n %{libname}
-%{_libdir}/*.so.%{major}*
+%{_libdir}/libcurl.so.%{major}*
 
-%files -n %{develname}
+%files -n %{devname}
 %docdir docs/
 %doc docs/BUGS docs/KNOWN_BUGS docs/CONTRIBUTE docs/FAQ CHANGES
 %doc docs/FEATURES docs/RESOURCES docs/TODO docs/THANKS docs/INTERNALS
 %{_bindir}/curl-config
 %{multiarch_bindir}/curl-config
 %{_libdir}/libcurl.so
-%if %{mdvver} < 201200
-%{_libdir}/libcurl.la
-%endif
 %{_includedir}/curl
 %{_libdir}/pkgconfig/*.pc
 %{_mandir}/man1/curl-config.1*
