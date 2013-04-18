@@ -1,5 +1,5 @@
 sources:
-  curl-7.28.1.tar.lzma: cf6ef8cdabcc8e8288bbf0678b25e6127b31e5c9
-  curl-7.28.1.tar.lzma.asc: fcd437e9764842eb6f553d5bc681d1cef0fef68c
   curl-7.29.0.tar.lzma: 28f2ffe1a4eb5b8d0fb95db1b2ef6ba04e2572fe
   curl-7.29.0.tar.lzma.asc: f04926baa1c165485bee8d4fe9a13efdcae0fe96
+  curl-7.30.0.tar.lzma: 97d7a52996a09711b4f561b328aefde5b4299bd8
+  curl-7.30.0.tar.lzma.asc: 3133808b7f6dd50ce3d9bbce885f51d207de3316

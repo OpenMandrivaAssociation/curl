@@ -1,29 +1,29 @@
---- curl-7.29.0/curl-config.in.multilib~	2012-12-11 23:32:22.000000000 +0100
-+++ curl-7.29.0/curl-config.in	2013-02-06 20:25:52.822053653 +0100
+--- curl-7.30.0/curl-config.in.0004~	2013-04-18 12:26:27.355994049 +0200
++++ curl-7.30.0/curl-config.in	2013-04-18 12:27:42.583053581 +0200
 @@ -75,7 +75,7 @@ while test $# -gt 0; do
- 	;;
+         ;;
  
      --cc)
--	echo "@CC@"
-+	echo "gcc"
- 	;;
+-        echo "@CC@"
++        echo "gcc"
+         ;;
  
      --prefix)
 @@ -142,16 +142,7 @@ while test $# -gt 0; do
-        	;;
+         ;;
  
      --libs)
--	if test "X@libdir@" != "X/usr/lib" -a "X@libdir@" != "X/usr/lib64"; then
--	   CURLLIBDIR="-L@libdir@ "
--	else
--	   CURLLIBDIR=""
--	fi
--	if test "X@REQUIRE_LIB_DEPS@" = "Xyes"; then
--	  echo ${CURLLIBDIR}-lcurl @LIBCURL_LIBS@
--	else
--	  echo ${CURLLIBDIR}-lcurl
--	fi
-+        pkg-config libcurl --libs
- 	;;
+-        if test "X@libdir@" != "X/usr/lib" -a "X@libdir@" != "X/usr/lib64"; then
+-           CURLLIBDIR="-L@libdir@ "
+-        else
+-           CURLLIBDIR=""
+-        fi
+-        if test "X@REQUIRE_LIB_DEPS@" = "Xyes"; then
+-          echo ${CURLLIBDIR}-lcurl @LIBCURL_LIBS@
+-        else
+-          echo ${CURLLIBDIR}-lcurl
+-        fi
++        pkg-config --libs libcurl
+         ;;
  
      --static-libs)

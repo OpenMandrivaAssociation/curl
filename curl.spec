@@ -8,8 +8,8 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Epoch:		1
-Version:	7.29.0
-Release:	4
+Version:	7.30.0
+Release:	1
 License:	BSD-like
 Group:		Networking/Other
 Url:		http://curl.haxx.se
@@ -17,7 +17,6 @@ Source0:	http://curl.haxx.se/download/%{name}-%{version}.tar.lzma
 Source1:	http://curl.haxx.se/download/%{name}-%{version}.tar.lzma.asc
 Patch4:		%{name}-7.26.0-multilib.patch
 Patch6:		%{name}-7.26.0-do-not-build-examples.patch
-Patch7:		0001-curl-7.29.0-da3fc1ee.patch
 BuildRequires:	groff-base
 BuildRequires:	stunnel
 BuildRequires:	krb5-devel
