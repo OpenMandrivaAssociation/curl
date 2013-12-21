@@ -8,7 +8,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Epoch:		1
-Version:	7.30.0
+Version:	7.34.0
 Release:	7
 License:	BSD-like
 Group:		Networking/Other
@@ -142,6 +142,7 @@ rm -f %{buildroot}%{_mandir}/man1/mk-ca-bundle.1*
 %{_libdir}/libcurl.so
 %{_includedir}/curl
 %{_libdir}/pkgconfig/*.pc
+%{_datadir}/aclocal/*.m4
 %{_mandir}/man1/curl-config.1*
 %{_mandir}/man3/*
 
