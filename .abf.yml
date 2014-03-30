@@ -1,2 +1,4 @@
 sources:
   curl-7.35.0.tar.lzma: ba7b8866308e3dc1264aac42342a2094cac3cace
+  curl-7.36.0.tar.lzma: a82e3384a8577f508259725493923d4d8782ee63
+  curl-7.36.0.tar.lzma.asc: 3b26cbe3f5550135cdc3284b372153a442011bfa
