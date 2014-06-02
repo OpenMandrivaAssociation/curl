@@ -8,13 +8,12 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Epoch:		1
-Version:	7.36.0
+Version:	7.37.0
 Release:	1
 License:	BSD-like
 Group:		Networking/Other
 Url:		http://curl.haxx.se
 Source0:	http://curl.haxx.se/download/%{name}-%{version}.tar.lzma
-Source1:	http://curl.haxx.se/download/%{name}-%{version}.tar.lzma.asc
 Patch4:		%{name}-7.26.0-multilib.patch
 Patch6:		%{name}-7.26.0-do-not-build-examples.patch
 BuildRequires:	groff-base
@@ -78,7 +77,7 @@ Example files for %{name} development.
 %build
 autoreconf -fiv
 
-%configure2_5x \
+%configure \
 	--disable-static \
 	--with-ssl \
 	--without-gnutls \
