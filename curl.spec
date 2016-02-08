@@ -8,7 +8,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Epoch:		1
-Version:	7.45.0
+Version:	7.47.1
 Release:	1
 License:	BSD-like
 Group:		Networking/Other
@@ -69,6 +69,14 @@ BuildArch:	noarch
 
 %description examples
 Example files for %{name} development.
+
+%package -n zsh-curl
+Summary:	ZSH completion and functions related to curl
+Group:		Networking/Other
+Requires:	%{name} = %{EVRD}
+
+%description -n zsh-curl
+ZSH completion and functions related to curl
 
 %prep
 %setup -q
@@ -147,3 +155,6 @@ rm -f %{buildroot}%{_mandir}/man1/mk-ca-bundle.1*
 
 %files examples
 %doc docs/examples
+
+%files -n zsh-curl
+%{_datadir}/zsh/site-functions/_curl

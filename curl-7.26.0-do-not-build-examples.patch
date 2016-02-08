@@ -1,6 +1,6 @@
---- curl-7.26.0/docs/Makefile.am.orig	2012-04-27 18:25:35.000000000 +0000
-+++ curl-7.26.0/docs/Makefile.am	2012-05-27 22:40:55.000000000 +0000
-@@ -28,7 +28,7 @@
+--- curl-7.47.1/docs/Makefile.am.0006~	2016-02-03 00:07:54.000000000 +0100
++++ curl-7.47.1/docs/Makefile.am	2016-02-08 12:42:36.999054112 +0100
+@@ -29,7 +29,7 @@ PDFPAGES = curl.pdf curl-config.pdf mk-c
  
  HTMLPAGES = $(GENHTMLPAGES) index.html
  
@@ -9,14 +9,14 @@
  
  CLEANFILES = $(GENHTMLPAGES) $(PDFPAGES)
  
---- curl-7.26.0/docs/Makefile.in.orig	2012-05-22 21:46:41.000000000 +0000
-+++ curl-7.26.0/docs/Makefile.in	2012-05-27 22:41:37.000000000 +0000
-@@ -302,7 +302,7 @@
+--- curl-7.47.1/docs/Makefile.in.0006~	2016-02-08 12:42:37.000054153 +0100
++++ curl-7.47.1/docs/Makefile.in	2016-02-08 14:07:01.298686968 +0100
+@@ -445,7 +445,7 @@ noinst_man_MANS = mk-ca-bundle.1
  GENHTMLPAGES = curl.html curl-config.html mk-ca-bundle.html
  PDFPAGES = curl.pdf curl-config.pdf mk-ca-bundle.pdf
  HTMLPAGES = $(GENHTMLPAGES) index.html
 -SUBDIRS = examples libcurl
 +SUBDIRS = libcurl
  CLEANFILES = $(GENHTMLPAGES) $(PDFPAGES)
- EXTRA_DIST = MANUAL BUGS CONTRIBUTE FAQ FEATURES INTERNALS SSLCERTS	 \
-  README.win32 RESOURCES TODO TheArtOfHttpScripting THANKS VERSIONS	 \
+ EXTRA_DIST = MANUAL BUGS CONTRIBUTE FAQ FEATURES INTERNALS SSLCERTS	\
+  README.win32 RESOURCES TODO TheArtOfHttpScripting THANKS VERSIONS	\
