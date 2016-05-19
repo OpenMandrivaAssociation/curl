@@ -1,4 +1,4 @@
-%define major	4
+%define major 4
 %define libname %mklibname %{name} %{major}
 %define devname %mklibname %{name} -d
 %ifarch aarch64
@@ -8,7 +8,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Epoch:		1
-Version:	7.48.0
+Version:	7.49.0
 Release:	1
 License:	BSD-like
 Group:		Networking/Other
