@@ -8,7 +8,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Epoch:		1
-Version:	7.49.0
+Version:	7.49.1
 Release:	1
 License:	BSD-like
 Group:		Networking/Other
@@ -120,6 +120,7 @@ rm -r docs/examples/.deps ||:
 
 %install
 %makeinstall_std
+%makeinstall_std -C scripts
 
 # [july 2008] HACK. to be replaced by a real fix
 sed -i -e 's!-Wl,--as-needed!!' -e 's!-Wl,--no-undefined!!' %{buildroot}%{_bindir}/%{name}-config
