@@ -120,6 +120,7 @@ rm -r docs/examples/.deps ||:
 
 %install
 %makeinstall_std
+%makeinstall_std -C scripts
 
 # [july 2008] HACK. to be replaced by a real fix
 sed -i -e 's!-Wl,--as-needed!!' -e 's!-Wl,--no-undefined!!' %{buildroot}%{_bindir}/%{name}-config
