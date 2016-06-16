@@ -1,6 +1,7 @@
 %define major 4
 %define libname %mklibname %{name} %{major}
 %define devname %mklibname %{name} -d
+%define devstatic %mklibname %{name} -d -s
 %ifarch aarch64
 %define debug_package	%{nil}
 %endif
@@ -9,7 +10,7 @@ Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Epoch:		1
 Version:	7.49.1
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		Networking/Other
 Url:		http://curl.haxx.se
@@ -61,6 +62,19 @@ various protocols, including http and ftp.
 You should install this package if you wish to develop applications that
 use libcurl.
 
+%package -n %{devstatic}
+Summary:	Static libraries for libcurl
+Group:		Development/C
+Requires:	%{devname} = %{EVRD}
+Provides:	%{name}-static-devel = %{EVRD}
+
+%description -n %{devstatic}
+libcurl is a library of functions for sending and receiving files through
+various protocols, including http and ftp.
+
+You should install this package if you wish to develop applications that
+use libcurl.
+
 %package examples
 Summary:	Example files for %{name} development
 Group:		Development/C
@@ -86,7 +100,7 @@ ZSH completion and functions related to curl
 autoreconf -fiv
 
 %configure \
-	--disable-static \
+	--enable-static \
 	--with-ssl \
 	--without-gnutls \
 	--with-zlib \
@@ -153,6 +167,9 @@ rm -f %{buildroot}%{_mandir}/man1/mk-ca-bundle.1*
 %{_datadir}/aclocal/*.m4
 %{_mandir}/man1/curl-config.1*
 %{_mandir}/man3/*
+
+%files -n %{devstatic}
+%{_libdir}/libcurl.a
 
 %files examples
 %doc docs/examples
