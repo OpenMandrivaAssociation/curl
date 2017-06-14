@@ -9,7 +9,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Epoch:		1
-Version:	7.54.0
+Version:	7.54.1
 Release:	1
 License:	BSD-like
 Group:		Networking/Other
@@ -140,8 +140,6 @@ rm -r docs/examples/.deps ||:
 sed -i -e 's!-Wl,--as-needed!!' -e 's!-Wl,--no-undefined!!' %{buildroot}%{_bindir}/%{name}-config
 sed -i -e 's!-Wl,--as-needed!!' -e 's!-Wl,--no-undefined!!' %{buildroot}%{_libdir}/pkgconfig/*.pc
 
-%multiarch_binaries %{buildroot}%{_bindir}/%{name}-config
-
 # (tpg) use rootcerts's certificates #35917
 find %{buildroot} -name ca-bundle.crt -exec rm -f '{}' \;
 
@@ -160,7 +158,6 @@ rm -f %{buildroot}%{_mandir}/man1/mk-ca-bundle.1*
 %doc docs/BUGS docs/KNOWN_BUGS docs/FAQ CHANGES
 %doc docs/FEATURES docs/RESOURCES docs/TODO docs/THANKS
 %{_bindir}/curl-config
-%{multiarch_bindir}/curl-config
 %{_libdir}/libcurl.so
 %{_includedir}/curl
 %{_libdir}/pkgconfig/*.pc

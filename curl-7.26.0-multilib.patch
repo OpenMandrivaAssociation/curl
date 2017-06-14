@@ -1,14 +1,5 @@
 --- curl-7.30.0/curl-config.in.0004~	2013-04-18 12:26:27.355994049 +0200
 +++ curl-7.30.0/curl-config.in	2013-04-18 12:27:42.583053581 +0200
-@@ -75,7 +75,7 @@ while test $# -gt 0; do
-         ;;
- 
-     --cc)
--        echo "@CC@"
-+        echo "gcc"
-         ;;
- 
-     --prefix)
 @@ -142,16 +142,7 @@ while test $# -gt 0; do
          ;;
  
