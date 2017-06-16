@@ -9,7 +9,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Epoch:		1
-Version:	7.54.0
+Version:	7.54.1
 Release:	1
 License:	BSD-like
 Group:		Networking/Other
