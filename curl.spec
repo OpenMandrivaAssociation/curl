@@ -9,12 +9,12 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Epoch:		1
-Version:	7.54.0
+Version:	7.56.0
 Release:	1
 License:	BSD-like
 Group:		Networking/Other
 Url:		http://curl.haxx.se
-Source0:	http://curl.haxx.se/download/%{name}-%{version}.tar.lzma
+Source0:	http://curl.haxx.se/download/%{name}-%{version}.tar.xz
 Patch4:		%{name}-7.26.0-multilib.patch
 #Patch6:		%{name}-7.26.0-do-not-build-examples.patch
 BuildRequires:	groff-base
