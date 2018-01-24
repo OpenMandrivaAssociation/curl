@@ -1,6 +1,6 @@
---- curl-7.30.0/curl-config.in.0004~	2013-04-18 12:26:27.355994049 +0200
-+++ curl-7.30.0/curl-config.in	2013-04-18 12:27:42.583053581 +0200
-@@ -142,16 +142,7 @@ while test $# -gt 0; do
+--- curl-7.58.0/curl-config.in.0004~	2018-01-24 09:24:50.180891348 +0100
++++ curl-7.58.0/curl-config.in	2018-01-24 09:26:16.846340020 +0100
+@@ -143,16 +143,7 @@ while test $# -gt 0; do
          ;;
  
      --libs)
@@ -16,5 +16,5 @@
 -        fi
 +        pkg-config --libs libcurl
          ;;
- 
-     --static-libs)
+     --ssl-backends)
+         echo "@SSL_BACKENDS@"
