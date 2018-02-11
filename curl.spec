@@ -9,7 +9,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Epoch:		1
-Version:	7.56.0
+Version:	7.58.0
 Release:	1
 License:	BSD-like
 Group:		Networking/Other
@@ -120,7 +120,6 @@ autoreconf -fiv
 	--with-gssapi=%{_prefix} \
 	--disable-ares
 
-
 %make
 
 # we don't want them in curl-examples:
@@ -140,7 +139,9 @@ rm -r docs/examples/.deps ||:
 sed -i -e 's!-Wl,--as-needed!!' -e 's!-Wl,--no-undefined!!' %{buildroot}%{_bindir}/%{name}-config
 sed -i -e 's!-Wl,--as-needed!!' -e 's!-Wl,--no-undefined!!' %{buildroot}%{_libdir}/pkgconfig/*.pc
 
+%if %{mdvver} <= 3000000
 %multiarch_binaries %{buildroot}%{_bindir}/%{name}-config
+%endif
 
 # (tpg) use rootcerts's certificates #35917
 find %{buildroot} -name ca-bundle.crt -exec rm -f '{}' \;
@@ -160,7 +161,9 @@ rm -f %{buildroot}%{_mandir}/man1/mk-ca-bundle.1*
 %doc docs/BUGS docs/KNOWN_BUGS docs/FAQ CHANGES
 %doc docs/FEATURES docs/RESOURCES docs/TODO docs/THANKS
 %{_bindir}/curl-config
+%if %{mdvver} <= 3000000
 %{multiarch_bindir}/curl-config
+%endif
 %{_libdir}/libcurl.so
 %{_includedir}/curl
 %{_libdir}/pkgconfig/*.pc
