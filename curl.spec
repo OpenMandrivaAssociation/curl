@@ -18,11 +18,11 @@ Source0:	http://curl.haxx.se/download/%{name}-%{version}.tar.xz
 Patch4:		%{name}-7.26.0-multilib.patch
 BuildRequires:	groff-base
 BuildRequires:	stunnel
-BuildRequires:	krb5-devel
+BuildRequires:	pkgconfig(krb5-gssapi)
 BuildRequires:	openldap-devel
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(zlib)
-BuildRequires:	pkgconfig(libidn)
+BuildRequires:	pkgconfig(libidn2)
 BuildRequires:	pkgconfig(libssh2)
 Provides:	webfetch
 
