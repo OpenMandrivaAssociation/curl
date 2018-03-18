@@ -24,6 +24,7 @@ BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(libidn2)
 BuildRequires:	pkgconfig(libssh2)
+BuildRequires:	pkgconfig(ext2fs)
 Provides:	webfetch
 
 %description
