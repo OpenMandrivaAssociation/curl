@@ -157,7 +157,6 @@ rm -f %{buildroot}%{_mandir}/man1/mk-ca-bundle.1*
 %{_libdir}/libcurl.so.%{major}*
 
 %files -n %{devname}
-%docdir docs/
 %doc docs/BUGS docs/KNOWN_BUGS docs/FAQ CHANGES
 %doc docs/FEATURES docs/RESOURCES docs/TODO docs/THANKS
 %{_bindir}/curl-config
