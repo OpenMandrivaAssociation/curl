@@ -9,22 +9,22 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Epoch:		1
-Version:	7.58.0
+Version:	7.60.0
 Release:	1
 License:	BSD-like
 Group:		Networking/Other
 Url:		http://curl.haxx.se
 Source0:	http://curl.haxx.se/download/%{name}-%{version}.tar.xz
 Patch4:		%{name}-7.26.0-multilib.patch
-#Patch6:		%{name}-7.26.0-do-not-build-examples.patch
 BuildRequires:	groff-base
 BuildRequires:	stunnel
-BuildRequires:	krb5-devel
+BuildRequires:	pkgconfig(krb5-gssapi)
 BuildRequires:	openldap-devel
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(zlib)
-BuildRequires:	pkgconfig(libidn)
+BuildRequires:	pkgconfig(libidn2)
 BuildRequires:	pkgconfig(libssh2)
+BuildRequires:	pkgconfig(ext2fs)
 Provides:	webfetch
 
 %description
@@ -94,7 +94,7 @@ ZSH completion and functions related to curl
 
 %prep
 %setup -q
-%apply_patches
+%autopatch -p1
 
 %build
 autoreconf -fiv
@@ -120,7 +120,7 @@ autoreconf -fiv
 	--with-gssapi=%{_prefix} \
 	--disable-ares
 
-%make
+%make_build
 
 # we don't want them in curl-examples:
 rm -r docs/examples/.deps ||:
@@ -132,8 +132,8 @@ rm -r docs/examples/.deps ||:
 #make test TEST_Q='-a -p -v !SCP !SFTP !SOCKS4 !SOCKS5 !TFTP !198' || :
 
 %install
-%makeinstall_std
-%makeinstall_std -C scripts
+%make_install
+%make_install -C scripts
 
 # [july 2008] HACK. to be replaced by a real fix
 sed -i -e 's!-Wl,--as-needed!!' -e 's!-Wl,--no-undefined!!' %{buildroot}%{_bindir}/%{name}-config
@@ -157,7 +157,6 @@ rm -f %{buildroot}%{_mandir}/man1/mk-ca-bundle.1*
 %{_libdir}/libcurl.so.%{major}*
 
 %files -n %{devname}
-%docdir docs/
 %doc docs/BUGS docs/KNOWN_BUGS docs/FAQ CHANGES
 %doc docs/FEATURES docs/RESOURCES docs/TODO docs/THANKS
 %{_bindir}/curl-config
