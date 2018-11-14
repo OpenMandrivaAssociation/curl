@@ -1,2 +1,4 @@
-sources:
+removed_sources:
   curl-7.61.0.tar.xz: 9fda7fc5e94337a25166e885e9abe05e0adace53
+sources:
+  curl-7.62.0.tar.xz: 9d08126a3ae06834e2fdebdac2ef20fe7c4feb12
