@@ -2,6 +2,7 @@
 %define libname %mklibname %{name} %{major}
 %define devname %mklibname %{name} -d
 %define devstatic %mklibname %{name} -d -s
+%define _disable_ld_no_undefined 1
 %ifarch aarch64
 %define debug_package	%{nil}
 %endif
