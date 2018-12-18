@@ -94,8 +94,7 @@ Requires:	%{name} = %{EVRD}
 ZSH completion and functions related to curl
 
 %prep
-%setup -q
-%apply_patches
+%autosetup -p1
 
 %build
 autoreconf -fiv
@@ -121,7 +120,7 @@ autoreconf -fiv
 	--with-gssapi=%{_prefix} \
 	--disable-ares
 
-%make
+%make_build
 
 # we don't want them in curl-examples:
 rm -r docs/examples/.deps ||:
@@ -133,8 +132,8 @@ rm -r docs/examples/.deps ||:
 #make test TEST_Q='-a -p -v !SCP !SFTP !SOCKS4 !SOCKS5 !TFTP !198' || :
 
 %install
-%makeinstall_std
-%makeinstall_std -C scripts
+%make_install
+%make_install -C scripts
 
 # [july 2008] HACK. to be replaced by a real fix
 sed -i -e 's!-Wl,--as-needed!!' -e 's!-Wl,--no-undefined!!' %{buildroot}%{_bindir}/%{name}-config
