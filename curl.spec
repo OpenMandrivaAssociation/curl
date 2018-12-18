@@ -99,6 +99,10 @@ ZSH completion and functions related to curl
 %apply_patches
 
 %build
+# ../lib/.libs/libcurl.so: error: undefined reference to 'gnutls_srp_set_client_credentials'
+export CC=gcc
+export CXX=g++
+
 autoreconf -fiv
 
 %configure \
