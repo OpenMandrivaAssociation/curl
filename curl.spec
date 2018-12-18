@@ -9,7 +9,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Epoch:		1
-Version:	7.62.0
+Version:	7.63.0
 Release:	1
 License:	BSD-like
 Group:		Networking/Other
@@ -25,6 +25,7 @@ BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(libidn2)
 BuildRequires:	pkgconfig(libssh2)
 BuildRequires:	pkgconfig(ext2fs)
+BuildRequires:	pkgconfig(gnutls)
 Provides:	webfetch
 
 %description
@@ -102,7 +103,7 @@ autoreconf -fiv
 %configure \
 	--enable-static \
 	--with-ssl \
-	--without-gnutls \
+	--with-gnutls \
 	--with-zlib \
 	--with-lber-lib=lber \
 	--with-libidn \
