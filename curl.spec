@@ -126,7 +126,7 @@ autoreconf -fiv
 	--with-gssapi=%{_prefix} \
 	--disable-ares
 
-%make
+%make -j1
 
 # we don't want them in curl-examples:
 rm -r docs/examples/.deps ||:
