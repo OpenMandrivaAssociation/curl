@@ -2,8 +2,6 @@
 %define libname %mklibname %{name} %{major}
 %define devname %mklibname %{name} -d
 %define devstatic %mklibname %{name} -d -s
-%define _disable_ld_no_undefined 1
-%define _disable_lto 1
 %ifarch aarch64
 %define debug_package %{nil}
 %endif
@@ -100,12 +98,6 @@ ZSH completion and functions related to curl
 %apply_patches
 
 %build
-# ../lib/.libs/libcurl.so: error: undefined reference to 'gnutls_srp_set_client_credentials'
-export CC=gcc
-export CXX=g++
-
-autoreconf -fiv
-
 %configure \
 	--enable-static \
 	--with-ssl \
@@ -127,7 +119,7 @@ autoreconf -fiv
 	--with-gssapi=%{_prefix} \
 	--disable-ares
 
-%make -j1
+%make
 
 # we don't want them in curl-examples:
 rm -r docs/examples/.deps ||:
