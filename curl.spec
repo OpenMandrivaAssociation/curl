@@ -3,8 +3,9 @@
 %define devname %mklibname %{name} -d
 %define devstatic %mklibname %{name} -d -s
 %define _disable_ld_no_undefined 1
+%define _disable_lto 1
 %ifarch aarch64
-%define debug_package	%{nil}
+%define debug_package %{nil}
 %endif
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
