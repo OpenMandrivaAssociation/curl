@@ -15,6 +15,8 @@ License:	BSD-like
 Group:		Networking/Other
 Url:		http://curl.haxx.se
 Source0:	http://curl.haxx.se/download/%{name}-%{version}.tar.xz
+# (tpg) from Debian
+Patch0:		04_workaround_as_needed_bug.patch
 Patch4:		%{name}-7.26.0-multilib.patch
 BuildRequires:	groff-base
 BuildRequires:	stunnel
