@@ -107,8 +107,9 @@ autoreconf -fiv
 	--with-lber-lib=lber \
 	--with-libidn \
 	--with-ssh2 \
-	--with-random \
-	--disable-versioned-symbols \
+	--with-random='/dev/urandom' \
+	--enable-versioned-symbols \
+	--disable-symbol-hiding \
 	--enable-threaded-resolver \
 	--enable-optimize \
 	--enable-nonblocking \
