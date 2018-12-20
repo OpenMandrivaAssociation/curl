@@ -113,6 +113,8 @@ autoreconf -fiv
 	--with-libidn \
 	--with-ssh2 \
 	--with-random='/dev/urandom' \
+	--enable-hidden-symbols \
+	--enable-versioned-symbols \
 	--enable-threaded-resolver \
 	--enable-optimize \
 	--enable-nonblocking \
