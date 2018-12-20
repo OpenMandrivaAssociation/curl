@@ -3,14 +3,14 @@
 %define devname %mklibname %{name} -d
 %define devstatic %mklibname %{name} -d -s
 %ifarch aarch64
-%define debug_package	%{nil}
+%define debug_package %{nil}
 %endif
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Epoch:		1
 Version:	7.63.0
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		Networking/Other
 Url:		http://curl.haxx.se
@@ -108,7 +108,8 @@ autoreconf -fiv
 	--with-libidn \
 	--with-ssh2 \
 	--with-random \
-	--enable-hidden-symbols \
+	--disable-versioned-symbols \
+	--enable-threaded-resolver \
 	--enable-optimize \
 	--enable-nonblocking \
 	--enable-thread \
@@ -149,12 +150,16 @@ find %{buildroot} -name ca-bundle.crt -exec rm -f '{}' \;
 # we don't package mk-ca-bundle so we don't need man for it
 rm -f %{buildroot}%{_mandir}/man1/mk-ca-bundle.1*
 
+# compat symlinks for some steam games
+ln -sf %{_libdir}/libcurl.so.%{major} %{buildroot}%{_libdir}/libcurl-gnutls.so.4
+
 %files
 %{_bindir}/curl
 %{_mandir}/man1/curl.1*
 
 %files -n %{libname}
 %{_libdir}/libcurl.so.%{major}*
+%{_libdir}/libcurl-gnutls.so.*
 
 %files -n %{devname}
 %doc docs/BUGS docs/KNOWN_BUGS docs/FAQ CHANGES
