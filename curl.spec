@@ -98,7 +98,7 @@ ZSH completion and functions related to curl
 %apply_patches
 
 %build
-%global ldflags %ldflags -lgnutls
+
 
 %configure \
 	--enable-static \
