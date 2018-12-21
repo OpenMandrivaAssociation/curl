@@ -25,12 +25,12 @@ BuildRequires:	groff-base
 BuildRequires:	stunnel
 BuildRequires:	pkgconfig(krb5-gssapi)
 BuildRequires:	openldap-devel
+# (tpg) we prefer OpenSSL over GnuTLS or nettle
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(libidn2)
 BuildRequires:	pkgconfig(libssh2)
 BuildRequires:	pkgconfig(ext2fs)
-BuildRequires:	pkgconfig(gnutls)
 Provides:	webfetch
 
 %description
@@ -107,7 +107,7 @@ autoreconf -fiv
 %configure \
 	--enable-static \
 	--with-ssl \
-	--with-gnutls \
+	--without-gnutls \
 	--with-zlib \
 	--with-lber-lib=lber \
 	--with-libidn \
@@ -115,6 +115,7 @@ autoreconf -fiv
 	--with-random='/dev/urandom' \
 	--enable-hidden-symbols \
 	--enable-versioned-symbols \
+	--enable-threaded-resolver \
 	--enable-optimize \
 	--enable-nonblocking \
 	--enable-thread \
@@ -155,16 +156,12 @@ find %{buildroot} -name ca-bundle.crt -exec rm -f '{}' \;
 # we don't package mk-ca-bundle so we don't need man for it
 rm -f %{buildroot}%{_mandir}/man1/mk-ca-bundle.1*
 
-# compat symlinks for some steam games
-ln -sf %{_libdir}/libcurl.so.%{major} %{buildroot}%{_libdir}/libcurl-gnutls.so.4
-
 %files
 %{_bindir}/curl
 %{_mandir}/man1/curl.1*
 
 %files -n %{libname}
 %{_libdir}/libcurl.so.%{major}*
-%{_libdir}/libcurl-gnutls.so.*
 
 %files -n %{devname}
 %doc docs/BUGS docs/KNOWN_BUGS docs/FAQ CHANGES
