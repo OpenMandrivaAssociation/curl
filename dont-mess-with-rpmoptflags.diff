@@ -1,0 +1,14 @@
+diff -Naur curl-7.63.0/configure.ac curl-7.63.0.tpg/configure.ac
+--- curl-7.63.0/configure.ac	2018-12-11 22:59:21.000000000 +0000
++++ curl-7.63.0.tpg/configure.ac	2018-12-20 22:46:37.953925611 +0000
+@@ -271,10 +271,6 @@
+ dnl **********************************************************************
+ 
+ CURL_CHECK_COMPILER
+-CURL_SET_COMPILER_BASIC_OPTS
+-CURL_SET_COMPILER_DEBUG_OPTS
+-CURL_SET_COMPILER_OPTIMIZE_OPTS
+-CURL_SET_COMPILER_WARNING_OPTS
+ 
+ if test "$compiler_id" = "INTEL_UNIX_C"; then
+   #

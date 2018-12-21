@@ -15,17 +15,22 @@ License:	BSD-like
 Group:		Networking/Other
 Url:		http://curl.haxx.se
 Source0:	http://curl.haxx.se/download/%{name}-%{version}.tar.xz
+# (tpg) patches from OpenSuse
+Patch0:         libcurl-ocloexec.patch
+Patch1:         dont-mess-with-rpmoptflags.diff
+# (tpg) from Debian
+Patch2:		04_workaround_as_needed_bug.patch
 Patch4:		%{name}-7.26.0-multilib.patch
 BuildRequires:	groff-base
 BuildRequires:	stunnel
 BuildRequires:	pkgconfig(krb5-gssapi)
 BuildRequires:	openldap-devel
+# (tpg) we prefer OpenSSL over GnuTLS or nettle
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(libidn2)
 BuildRequires:	pkgconfig(libssh2)
 BuildRequires:	pkgconfig(ext2fs)
-BuildRequires:	pkgconfig(gnutls)
 Provides:	webfetch
 
 %description
@@ -94,8 +99,7 @@ Requires:	%{name} = %{EVRD}
 ZSH completion and functions related to curl
 
 %prep
-%setup -q
-%apply_patches
+%autosetup -p1
 
 %build
 
@@ -108,8 +112,10 @@ ZSH completion and functions related to curl
 	--with-lber-lib=lber \
 	--with-libidn \
 	--with-ssh2 \
-	--with-random \
+	--with-random='/dev/urandom' \
 	--enable-hidden-symbols \
+	--enable-versioned-symbols \
+	--enable-threaded-resolver \
 	--enable-optimize \
 	--enable-nonblocking \
 	--enable-thread \
@@ -121,7 +127,7 @@ ZSH completion and functions related to curl
 	--with-gssapi=%{_prefix} \
 	--disable-ares
 
-%make
+%make_build
 
 # we don't want them in curl-examples:
 rm -r docs/examples/.deps ||:
@@ -133,8 +139,8 @@ rm -r docs/examples/.deps ||:
 #make test TEST_Q='-a -p -v !SCP !SFTP !SOCKS4 !SOCKS5 !TFTP !198' || :
 
 %install
-%makeinstall_std
-%makeinstall_std -C scripts
+%make_install
+%make_install -C scripts
 
 # [july 2008] HACK. to be replaced by a real fix
 sed -i -e 's!-Wl,--as-needed!!' -e 's!-Wl,--no-undefined!!' %{buildroot}%{_bindir}/%{name}-config
