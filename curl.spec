@@ -24,7 +24,7 @@ Patch4:		%{name}-7.26.0-multilib.patch
 BuildRequires:	groff-base
 BuildRequires:	stunnel
 BuildRequires:	pkgconfig(krb5-gssapi)
-BuildRequires:	openldap-devel
+BuildRequires:	openldap-devel >= 2.4.46-4
 # (tpg) we prefer OpenSSL over GnuTLS or nettle
 BuildRequires:	pkgconfig(openssl)
 BuildRequires:	pkgconfig(zlib)
