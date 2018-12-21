@@ -114,8 +114,7 @@ autoreconf -fiv
 	--with-ssh2 \
 	--with-random='/dev/urandom' \
 	--enable-hidden-symbols \
-	--enable-versioned-symbols \
-	--enable-threaded-resolver \
+	--disable-versioned-symbols \
 	--enable-optimize \
 	--enable-nonblocking \
 	--enable-thread \
