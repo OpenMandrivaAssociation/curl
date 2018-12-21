@@ -10,7 +10,7 @@ Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Epoch:		1
 Version:	7.63.0
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		Networking/Other
 Url:		http://curl.haxx.se
@@ -103,7 +103,7 @@ ZSH completion and functions related to curl
 %configure \
 	--enable-static \
 	--with-ssl \
-	--with-gnutls \
+	--without-gnutls \
 	--with-zlib \
 	--with-lber-lib=lber \
 	--with-libidn \
