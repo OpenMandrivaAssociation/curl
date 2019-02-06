@@ -9,8 +9,8 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Epoch:		1
-Version:	7.63.0
-Release:	3
+Version:	7.64.0
+Release:	1
 License:	BSD-like
 Group:		Networking/Other
 Url:		http://curl.haxx.se
