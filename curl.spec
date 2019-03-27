@@ -14,8 +14,8 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	7.64.0
-Release:	3
+Version:	7.64.1
+Release:	1
 License:	BSD-like
 Group:		Networking/Other
 Url:		http://curl.haxx.se
@@ -258,6 +258,9 @@ find %{buildroot} -name ca-bundle.crt -exec rm -f '{}' \;
 
 # we don't package mk-ca-bundle so we don't need man for it
 rm -f %{buildroot}%{_mandir}/man1/mk-ca-bundle.1*
+
+# Does anyone actually use fish?
+rm -rf %{buildroot}%{_datadir}/fish
 
 %files
 %{_bindir}/curl
