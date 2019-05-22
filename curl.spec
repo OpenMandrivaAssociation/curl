@@ -14,7 +14,7 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	7.64.1
+Version:	7.65.0
 Release:	1
 License:	BSD-like
 Group:		Networking/Other
