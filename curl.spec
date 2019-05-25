@@ -15,7 +15,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Version:	7.65.0
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		Networking/Other
 Url:		http://curl.haxx.se
@@ -26,6 +26,8 @@ Patch1:         dont-mess-with-rpmoptflags.diff
 # (tpg) from Debian
 Patch2:		04_workaround_as_needed_bug.patch
 Patch4:		%{name}-7.26.0-multilib.patch
+# Patches from upstream
+Patch10:	https://github.com/curl/curl/commit/c6b58137237a89081b4efc33ae0ecf7282e40132.patch
 BuildRequires:	groff-base
 BuildRequires:	stunnel
 BuildRequires:	pkgconfig(krb5-gssapi)
