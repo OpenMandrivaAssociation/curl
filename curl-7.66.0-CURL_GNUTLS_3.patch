@@ -1,0 +1,19 @@
+diff -up curl-7.66.0/lib/libcurl.vers.in.omv~ curl-7.66.0/lib/libcurl.vers.in
+--- curl-7.66.0/lib/libcurl.vers.in.omv~	2019-11-02 17:43:07.948964667 +0100
++++ curl-7.66.0/lib/libcurl.vers.in	2019-11-02 17:43:45.821107554 +0100
+@@ -6,6 +6,15 @@ HIDDEN
+     _save*;
+ };
+ 
++# Let's try to be compatible enough with
++# Brokenbuntu libraries used in games like
++# Civilization Beyond Earth...
++CURL_@CURL_LT_SHLIB_VERSIONED_FLAVOUR@3
++{
++  global: curl_*;
++  local: *;
++};
++
+ CURL_@CURL_LT_SHLIB_VERSIONED_FLAVOUR@4
+ {
+   global: curl_*;

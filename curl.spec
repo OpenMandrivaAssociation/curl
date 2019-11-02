@@ -15,7 +15,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Version:	7.66.0
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		Networking/Other
 Url:		http://curl.haxx.se
@@ -26,6 +26,9 @@ Patch1:         dont-mess-with-rpmoptflags.diff
 # (tpg) from Debian
 Patch2:		04_workaround_as_needed_bug.patch
 Patch4:		%{name}-7.26.0-multilib.patch
+# Try to be binary compatible with ancient versions
+# used by non-free games such as Civilization Beyond Earth
+Patch5:		curl-7.66.0-CURL_GNUTLS_3.patch
 BuildRequires:	groff-base
 BuildRequires:	stunnel
 BuildRequires:	pkgconfig(krb5-gssapi)
