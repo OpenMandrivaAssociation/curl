@@ -252,10 +252,6 @@ done
 sed -i -e 's!-Wl,--as-needed!!' -e 's!-Wl,--no-undefined!!' %{buildroot}%{_bindir}/%{name}-config
 sed -i -e 's!-Wl,--as-needed!!' -e 's!-Wl,--no-undefined!!' -e 's!-L${libdir} !!' %{buildroot}%{_libdir}/pkgconfig/*.pc
 
-%if %{mdvver} <= 3000000
-%multiarch_binaries %{buildroot}%{_bindir}/%{name}-config
-%endif
-
 # (tpg) use rootcerts's certificates #35917
 find %{buildroot} -name ca-bundle.crt -exec rm -f '{}' \;
 
@@ -282,9 +278,6 @@ rm -rf %{buildroot}%{_datadir}/fish
 %doc docs/BUGS docs/KNOWN_BUGS docs/FAQ CHANGES
 %doc docs/FEATURES docs/RESOURCES docs/TODO docs/THANKS
 %{_bindir}/curl-config
-%if %{mdvver} <= 3000000
-%{multiarch_bindir}/curl-config
-%endif
 %{_libdir}/libcurl.so
 %{_includedir}/curl
 %{_libdir}/pkgconfig/libcurl.pc
