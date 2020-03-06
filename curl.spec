@@ -21,7 +21,7 @@ Group:		Networking/Other
 Url:		http://curl.haxx.se
 Source0:	http://curl.haxx.se/download/%{name}-%{version}.tar.xz
 # (tpg) patches from OpenSuse
-Patch0:         libcurl-ocloexec.patch
+#Patch0:         libcurl-ocloexec.patch
 Patch1:         dont-mess-with-rpmoptflags.diff
 # (tpg) from Debian
 Patch2:		04_workaround_as_needed_bug.patch
