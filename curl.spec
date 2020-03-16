@@ -44,6 +44,8 @@ BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(libidn2)
 BuildRequires:	pkgconfig(libssh2)
 BuildRequires:	pkgconfig(ext2fs)
+BuildRequires:	pkgconfig(libnghttp2)
+BuildRequires: nghttp2
 Provides:	webfetch
 
 %description
@@ -204,6 +206,7 @@ for ssl in openssl gnutls mbedtls; do
 		--with-zlib \
 		--with-lber-lib=lber \
 		--with-libidn2 \
+		--with-nghttp2 \
 		--with-libssh2 \
 		--with-random='/dev/urandom' \
 		--enable-hidden-symbols \
