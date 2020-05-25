@@ -1,3 +1,13 @@
+# curl is used by systemd, libsystemd is used by wine
+# We don't need all the different crypto providers for the 32bit
+# builds though - one will do.
+# Let's go with openssl because it's the most common.
+%ifarch %{x86_64}
+%bcond_without compat32
+%else
+%bcond_with compat32
+%endif
+
 %define major 4
 %define libname %mklibname %{name} %{major}
 %define gnutlsname %mklibname %{name}-gnutls %{major}
@@ -11,11 +21,13 @@
 %ifarch aarch64
 %define debug_package %{nil}
 %endif
+%define lib32name libcurl%{major}
+%define dev32name libcurl-devel
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Version:	7.70.0
-Release:	2
+Release:	3
 License:	BSD-like
 Group:		Networking/Other
 Url:		http://curl.haxx.se
@@ -47,6 +59,13 @@ BuildRequires:	pkgconfig(ext2fs)
 BuildRequires:	pkgconfig(libnghttp2)
 BuildRequires: nghttp2
 Provides:	webfetch
+%if %{with compat32}
+BuildRequires:	devel(libz)
+BuildRequires:	devel(libidn2)
+BuildRequires:	devel(libssl)
+BuildRequires:	devel(libbrotlidec)
+BuildRequires:	devel(libbrotlienc)
+%endif
 
 %description
 curl is a client to get documents/files from servers, using any of the
@@ -186,6 +205,33 @@ Requires:	%{name} = %{EVRD}
 %description -n zsh-curl
 ZSH completion and functions related to curl
 
+%if %{with compat32}
+%package -n %{lib32name}
+Summary:	A library of functions for file transfer (32-bit)
+Group:		Networking/Other
+Requires:	rootcerts >= 1:20070713.00
+
+%description -n %{lib32name}
+libcurl is a library of functions for sending and receiving files through
+various protocols, including http and ftp.
+
+You should install this package if you plan to use any applications that
+use libcurl.
+
+%package -n %{dev32name}
+Summary:	Header files and static libraries for libcurl (32-bit)
+Group:		Development/C
+Requires:	%{devname} = %{EVRD}
+Requires:	%{lib32name} = %{EVRD}
+
+%description -n %{dev32name}
+libcurl is a library of functions for sending and receiving files through
+various protocols, including http and ftp.
+
+You should install this package if you wish to develop applications that
+use libcurl.
+%endif
+
 %prep
 %autosetup -p1
 
@@ -197,6 +243,27 @@ export CONFIGURE_TOP=`pwd`
 EXTRA_CONFIG_openssl="--with-ssl --without-gnutls --without-mbedtls"
 EXTRA_CONFIG_gnutls="--without-ssl --with-gnutls --without-mbedtls"
 EXTRA_CONFIG_mbedtls="--without-ssl --without-gnutls --with-mbedtls"
+
+%if %{with compat32}
+mkdir build32-openssl
+cd build32-openssl
+%configure32 \
+	--with-zlib \
+	--with-libidn2 \
+	--with-random='/dev/urandom' \
+	--enable-hidden-symbols \
+	--enable-versioned-symbols \
+	--enable-threaded-resolver \
+	--enable-optimize \
+	--enable-nonblocking \
+	--enable-thread \
+	--enable-crypto-auth \
+	--enable-libgcc \
+	--enable-ipv6 \
+	--without-brotli \
+	$EXTRA_CONFIG_openssl
+cd ..
+%endif
 
 for ssl in openssl gnutls mbedtls; do
 	mkdir build-$ssl
@@ -216,7 +283,6 @@ for ssl in openssl gnutls mbedtls; do
 		--enable-nonblocking \
 		--enable-thread \
 		--enable-crypto-auth \
-		--enable-libgcc \
 		--enable-ldaps \
 		--enable-ipv6 \
 		--with-ca-bundle=%{_sysconfdir}/pki/tls/certs/ca-bundle.crt \
@@ -237,6 +303,10 @@ rm -r docs/examples/.deps ||:
 #make test TEST_Q='-a -p -v !SCP !SFTP !SOCKS4 !SOCKS5 !TFTP !198' || :
 
 %install
+%if %{with compat32}
+%make_install -C build32-openssl
+%endif
+
 for ssl in mbedtls gnutls openssl; do
 	%make_install -C build-$ssl
 	if [ "$ssl" != "openssl" ]; then
@@ -310,3 +380,12 @@ rm -rf %{buildroot}%{_datadir}/fish
 
 %files -n zsh-curl
 %{_datadir}/zsh/site-functions/_curl
+
+%if %{with compat32}
+%files -n %{lib32name}
+%{_prefix}/lib/libcurl.so.%{major}*
+
+%files -n %{dev32name}
+%{_prefix}/lib/libcurl.so
+%{_prefix}/lib/pkgconfig/libcurl.pc
+%endif
