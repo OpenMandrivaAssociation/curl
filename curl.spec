@@ -26,8 +26,8 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	7.70.0
-Release:	3
+Version:	7.71.1
+Release:	1
 License:	BSD-like
 Group:		Networking/Other
 Url:		http://curl.haxx.se
