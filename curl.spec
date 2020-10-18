@@ -26,8 +26,8 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	7.71.1
-Release:	2
+Version:	7.73.0
+Release:	1
 License:	BSD-like
 Group:		Networking/Other
 Url:		http://curl.haxx.se
@@ -348,8 +348,8 @@ rm -rf %{buildroot}%{_datadir}/fish
 %{_libdir}/libcurl-mbedtls.so.%{major}*
 
 %files -n %{devname}
-%doc docs/BUGS docs/KNOWN_BUGS docs/FAQ CHANGES
-%doc docs/FEATURES docs/RESOURCES docs/TODO docs/THANKS
+%doc docs/KNOWN_BUGS docs/FAQ CHANGES
+%doc docs/FEATURES docs/TODO docs/THANKS
 %{_bindir}/curl-config
 %{_libdir}/libcurl.so
 %{_includedir}/curl
