@@ -26,7 +26,7 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	7.73.0
+Version:	7.74.0
 Release:	1
 License:	BSD-like
 Group:		Networking/Other
@@ -349,7 +349,7 @@ rm -rf %{buildroot}%{_datadir}/fish
 
 %files -n %{devname}
 %doc docs/KNOWN_BUGS docs/FAQ CHANGES
-%doc docs/FEATURES docs/TODO docs/THANKS
+%doc docs/TODO docs/THANKS
 %{_bindir}/curl-config
 %{_libdir}/libcurl.so
 %{_includedir}/curl
