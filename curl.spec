@@ -349,7 +349,7 @@ rm -rf %{buildroot}%{_datadir}/fish
 
 %files -n %{devname}
 %doc docs/KNOWN_BUGS docs/FAQ CHANGES
-%doc docs/FEATURES docs/TODO docs/THANKS
+%doc docs/TODO docs/THANKS
 %{_bindir}/curl-config
 %{_libdir}/libcurl.so
 %{_includedir}/curl
