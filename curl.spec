@@ -18,9 +18,6 @@
 %define devstatic %mklibname %{name} -d -s
 %define gnutlsstatic %mklibname %{name}-gnutls -d -s
 %define mbedtlsstatic %mklibname %{name}-mbedtls -d -s
-%ifarch aarch64
-%define debug_package %{nil}
-%endif
 %define lib32name libcurl%{major}
 %define dev32name libcurl-devel
 
