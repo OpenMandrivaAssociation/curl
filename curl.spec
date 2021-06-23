@@ -24,14 +24,14 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Version:	7.77.0
-Release:	2
+Release:	3
 License:	BSD-like
 Group:		Networking/Other
 Url:		http://curl.haxx.se
 Source0:	http://curl.haxx.se/download/%{name}-%{version}.tar.xz
 # (tpg) patches from OpenSuse
-Patch0:         libcurl-ocloexec.patch
-Patch1:         dont-mess-with-rpmoptflags.diff
+Patch0:		libcurl-ocloexec.patch
+Patch1:		dont-mess-with-rpmoptflags.diff
 # (tpg) from Debian
 Patch2:		04_workaround_as_needed_bug.patch
 Patch4:		%{name}-7.26.0-multilib.patch
@@ -41,7 +41,6 @@ Patch5:		curl-7.66.0-CURL_GNUTLS_3.patch
 BuildRequires:	groff-base
 BuildRequires:	stunnel
 BuildRequires:	pkgconfig(krb5-gssapi)
-BuildRequires:	openldap-devel >= 2.4.46-4
 # (tpg) we prefer OpenSSL over GnuTLS or nettle
 BuildRequires:	pkgconfig(openssl)
 # (bero) let's also build the gnutls version for
@@ -53,15 +52,14 @@ BuildRequires:	pkgconfig(zlib)
 BuildRequires:	pkgconfig(libidn2)
 BuildRequires:	pkgconfig(libssh2)
 BuildRequires:	pkgconfig(ext2fs)
+BuildRequires:	pkgconfig(libzstd)
 BuildRequires:	pkgconfig(libnghttp2)
-BuildRequires: nghttp2
+BuildRequires:	nghttp2
 Provides:	webfetch
 %if %{with compat32}
 BuildRequires:	devel(libz)
 BuildRequires:	devel(libidn2)
 BuildRequires:	devel(libssl)
-BuildRequires:	devel(libbrotlidec)
-BuildRequires:	devel(libbrotlienc)
 %endif
 
 %description
@@ -188,7 +186,7 @@ This version uses mbedtls instead of OpenSSL.
 %package examples
 Summary:	Example files for %{name} development
 Group:		Development/C
-Requires:       %{name}-devel = %{EVRD}
+Requires:	%{name}-devel = %{EVRD}
 BuildArch:	noarch
 
 %description examples
@@ -235,7 +233,7 @@ use libcurl.
 %build
 autoreconf -fiv
 
-export CONFIGURE_TOP=`pwd`
+export CONFIGURE_TOP=$(pwd)
 
 EXTRA_CONFIG_openssl="--with-ssl --without-gnutls --without-mbedtls"
 EXTRA_CONFIG_gnutls="--without-ssl --with-gnutls --without-mbedtls"
@@ -258,7 +256,9 @@ cd build32-openssl
 	--enable-libgcc \
 	--enable-ipv6 \
 	--without-brotli \
+	--without-zstd \
 	$EXTRA_CONFIG_openssl
+%make_build
 cd ..
 %endif
 
@@ -280,10 +280,10 @@ for ssl in openssl gnutls mbedtls; do
 		--enable-nonblocking \
 		--enable-thread \
 		--enable-crypto-auth \
-		--enable-ldaps \
 		--enable-ipv6 \
 		--with-ca-bundle=%{_sysconfdir}/pki/tls/certs/ca-bundle.crt \
 		--with-gssapi=%{_prefix} \
+		--with-zstd \
 		--disable-ares \
 		$(eval echo \${EXTRA_CONFIG_$ssl})
 	%make_build
