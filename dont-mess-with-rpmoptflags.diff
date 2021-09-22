@@ -1,7 +1,8 @@
-diff -Naur curl-7.63.0/configure.ac curl-7.63.0.tpg/configure.ac
---- curl-7.63.0/configure.ac	2018-12-11 22:59:21.000000000 +0000
-+++ curl-7.63.0.tpg/configure.ac	2018-12-20 22:46:37.953925611 +0000
-@@ -271,10 +271,6 @@
+Index: configure.ac
+===================================================================
+--- configure.ac.orig	2013-02-07 11:55:15.150276599 +0100
++++ configure.ac	2013-02-07 11:55:15.167277116 +0100
+@@ -288,10 +288,6 @@ dnl platform/compiler/architecture speci
  dnl **********************************************************************
  
  CURL_CHECK_COMPILER

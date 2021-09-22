@@ -23,8 +23,8 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	7.78.0
-Release:	2
+Version:	7.79.1
+Release:	1
 License:	BSD-like
 Group:		Networking/Other
 Url:		http://curl.haxx.se
@@ -333,7 +333,7 @@ rm -rf %{buildroot}%{_datadir}/fish
 
 %files
 %{_bindir}/curl
-%{_mandir}/man1/curl.1*
+%doc %{_mandir}/man1/curl.1*
 
 %files -n %{libname}
 %{_libdir}/libcurl.so.%{major}*
@@ -352,8 +352,8 @@ rm -rf %{buildroot}%{_datadir}/fish
 %{_includedir}/curl
 %{_libdir}/pkgconfig/libcurl.pc
 %{_datadir}/aclocal/*.m4
-%{_mandir}/man1/curl-config.1*
-%{_mandir}/man3/*
+%doc %{_mandir}/man1/curl-config.1*
+%doc %{_mandir}/man3/*
 
 %files -n %{gnutlsdev}
 %{_libdir}/libcurl-gnutls.so
