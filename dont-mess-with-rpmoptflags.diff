@@ -1,8 +1,7 @@
-Index: configure.ac
-===================================================================
---- configure.ac.orig	2013-02-07 11:55:15.150276599 +0100
-+++ configure.ac	2013-02-07 11:55:15.167277116 +0100
-@@ -288,10 +288,6 @@ dnl platform/compiler/architecture speci
+diff -Naur curl-7.79.1/configure.ac curl-7.79.1.tpg/configure.ac
+--- curl-7.79.1/configure.ac	2021-11-04 09:24:40.955173710 +0000
++++ curl-7.79.1.tpg/configure.ac	2021-11-04 09:25:55.974844369 +0000
+@@ -372,10 +372,6 @@
  dnl **********************************************************************
  
  CURL_CHECK_COMPILER
