@@ -57,6 +57,7 @@ BuildRequires:	pkgconfig(libnghttp2)
 BuildRequires:	nghttp2
 Provides:	webfetch
 %if %{with compat32}
+BuildRequires: libc6
 BuildRequires:	devel(libz)
 BuildRequires:	devel(libidn2)
 BuildRequires:	devel(libssl)
