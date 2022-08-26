@@ -24,7 +24,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Version:	7.84.0
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		Networking/Other
 Url:		http://curl.haxx.se
@@ -55,6 +55,7 @@ BuildRequires:	pkgconfig(ext2fs)
 BuildRequires:	pkgconfig(libzstd)
 BuildRequires:	pkgconfig(libnghttp2)
 BuildRequires:	nghttp2
+BuildRequires:	cmake ninja
 Provides:	webfetch
 %if %{with compat32}
 BuildRequires: libc6
@@ -291,6 +292,14 @@ for ssl in openssl gnutls mbedtls; do
 	cd ..
 done
 
+# We don't use cmake for the main builds yet, but let's run a cmake build
+# to get cmake integration files...
+# FIXME when we've made sure it doesn't create ABI issues, just switch
+# to cmake for the main build
+export CMAKE_BUILD_DIR=build-cmake
+%cmake -G Ninja
+%ninja_build
+
 # we don't want them in curl-examples:
 rm -r docs/examples/.deps ||:
 
@@ -301,6 +310,11 @@ rm -r docs/examples/.deps ||:
 #make test TEST_Q='-a -p -v !SCP !SFTP !SOCKS4 !SOCKS5 !TFTP !198' || :
 
 %install
+# Right now, we install the cmake build just to get the cmake files...
+# FIXME when we've made sure it doesn't create ABI issues, just switch
+# to cmake for the main build
+%ninja_install -C build-cmake
+
 %if %{with compat32}
 %make_install -C build32-openssl
 %endif
@@ -352,6 +366,7 @@ rm -rf %{buildroot}%{_datadir}/fish
 %{_libdir}/libcurl.so
 %{_includedir}/curl
 %{_libdir}/pkgconfig/libcurl.pc
+%{_libdir}/cmake/CURL
 %{_datadir}/aclocal/*.m4
 %doc %{_mandir}/man1/curl-config.1*
 %doc %{_mandir}/man3/*
