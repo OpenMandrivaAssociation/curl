@@ -24,7 +24,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Version:	7.84.0
-Release:	2
+Release:	3
 License:	BSD-like
 Group:		Networking/Other
 Url:		http://curl.haxx.se
@@ -55,7 +55,8 @@ BuildRequires:	pkgconfig(ext2fs)
 BuildRequires:	pkgconfig(libzstd)
 BuildRequires:	pkgconfig(libnghttp2)
 BuildRequires:	nghttp2
-BuildRequires:	cmake ninja
+BuildRequires:	cmake
+BuildRequires:	ninja
 Provides:	webfetch
 %if %{with compat32}
 BuildRequires: libc6
@@ -113,6 +114,7 @@ primarily for binary compatibility with some third party applications.
 %package -n %{devname}
 Summary:	Header files and static libraries for libcurl
 Group:		Development/C
+Requires:	%{name} = %{EVRD}
 Requires:	%{libname} = %{EVRD}
 Provides:	%{name}-devel = %{EVRD}
 
