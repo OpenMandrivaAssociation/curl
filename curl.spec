@@ -9,9 +9,9 @@
 %endif
 
 %define major 4
-%define libname %mklibname %{name} %{major}
-%define gnutlsname %mklibname %{name}-gnutls %{major}
-%define mbedtlsname %mklibname %{name}-mbedtls %{major}
+%define libname %mklibname %{name}
+%define gnutlsname %mklibname %{name}-gnutls
+%define mbedtlsname %mklibname %{name}-mbedtls
 %define devname %mklibname %{name} -d
 %define gnutlsdev %mklibname %{name}-gnutls -d
 %define mbedtlsdev %mklibname %{name}-mbedtls -d
@@ -23,8 +23,8 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	7.84.0
-Release:	3
+Version:	7.85.0
+Release:	1
 License:	BSD-like
 Group:		Networking/Other
 Url:		http://curl.haxx.se
@@ -40,6 +40,7 @@ Patch4:		%{name}-7.26.0-multilib.patch
 Patch5:		curl-7.66.0-CURL_GNUTLS_3.patch
 BuildRequires:	groff-base
 BuildRequires:	stunnel
+BuildRequires:	patchelf
 BuildRequires:	pkgconfig(krb5-gssapi)
 # (tpg) we prefer OpenSSL over GnuTLS or nettle
 BuildRequires:	pkgconfig(openssl)
@@ -79,6 +80,7 @@ This version is compiled with SSL (https) support.
 Summary:	A library of functions for file transfer
 Group:		Networking/Other
 Requires:	rootcerts >= 1:20070713.00
+%rename %{mklibname %{name} %{major}}
 
 %description -n %{libname}
 libcurl is a library of functions for sending and receiving files through
@@ -91,6 +93,7 @@ use libcurl.
 Summary:	A library of functions for file transfer
 Group:		Networking/Other
 Requires:	rootcerts >= 1:20070713.00
+%rename %{mklibname %{name}-gnutls %{major}}
 
 %description -n %{gnutlsname}
 libcurl is a library of functions for sending and receiving files through
@@ -103,6 +106,7 @@ primarily for binary compatibility with some third party applications.
 Summary:	A library of functions for file transfer
 Group:		Networking/Other
 Requires:	rootcerts >= 1:20070713.00
+%rename %{mklibname %{name}-mbedtls %{major}}
 
 %description -n %{mbedtlsname}
 libcurl is a library of functions for sending and receiving files through
@@ -325,6 +329,7 @@ for ssl in mbedtls gnutls openssl; do
 	%make_install -C build-$ssl
 	if [ "$ssl" != "openssl" ]; then
 		pushd %{buildroot}%{_libdir}
+		patchelf --set-soname libcurl-$ssl.so.%{major} libcurl.so.%{major}
 		for i in libcurl.so* libcurl.a; do
 			mv $i ${i/libcurl/libcurl-$ssl}
 		done
