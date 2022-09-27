@@ -330,9 +330,11 @@ for ssl in mbedtls gnutls openssl; do
 	if [ "$ssl" != "openssl" ]; then
 		pushd %{buildroot}%{_libdir}
 		patchelf --set-soname libcurl-$ssl.so.%{major} libcurl.so.%{major}
-		for i in libcurl.so* libcurl.a; do
+		for i in libcurl.so.* libcurl.a; do
 			mv $i ${i/libcurl/libcurl-$ssl}
 		done
+		rm libcurl.so
+		ln -s libcurl-$ssl.so.%{major} libcurl-$ssl.so
 		cd pkgconfig
 		sed -e "s,lcurl,lcurl-$ssl,g" libcurl.pc >libcurl-$ssl.pc
 		popd
