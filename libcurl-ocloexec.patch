@@ -1,19 +1,52 @@
-diff -up curl-7.85.0/configure.ac.1~ curl-7.85.0/configure.ac
---- curl-7.85.0/configure.ac.1~	2022-08-30 18:19:21.000000000 +0200
-+++ curl-7.85.0/configure.ac	2022-09-28 00:16:02.171182410 +0200
-@@ -335,6 +335,8 @@ AC_DEFINE_UNQUOTED(OS, "${host}", [cpu-m
- # Silence warning: ar: 'u' modifier ignored since 'D' is the default
- AC_SUBST(AR_FLAGS, [cr])
+Open library file descriptors with O_CLOEXEC
+This patch is non-portable, it needs linux 2.6.23 and glibc 2.7
+or later, different combinations (old linux, new glibc and vice-versa)
+will result in a crash.
+
+To make it portable you have to test O_CLOEXEC support at *runtime*
+compile time is not enough.
+
+
+Index: curl-7.87.0/lib/file.c
+===================================================================
+--- curl-7.87.0.orig/lib/file.c
++++ curl-7.87.0/lib/file.c
+@@ -232,7 +232,7 @@ static CURLcode file_connect(struct Curl
+     }
+   }
+   #else
+-  fd = open_readonly(real_path, O_RDONLY);
++  fd = open_readonly(real_path, O_RDONLY|O_CLOEXEC);
+   file->path = real_path;
+   #endif
+ #endif
+@@ -318,7 +318,7 @@ static CURLcode file_upload(struct Curl_
+   else
+     mode = MODE_DEFAULT|O_TRUNC;
  
-+AC_USE_SYSTEM_EXTENSIONS
-+
- dnl This defines _ALL_SOURCE for AIX
- CURL_CHECK_AIX_ALL_SOURCE
+-  fd = open(file->path, mode, data->set.new_file_perms);
++  fd = open(file->path, mode|O_CLOEXEC, data->set.new_file_perms);
+   if(fd < 0) {
+     failf(data, "Can't open %s for writing", file->path);
+     return CURLE_WRITE_ERROR;
+Index: curl-7.87.0/lib/if2ip.c
+===================================================================
+--- curl-7.87.0.orig/lib/if2ip.c
++++ curl-7.87.0/lib/if2ip.c
+@@ -206,7 +206,7 @@ if2ip_result_t Curl_if2ip(int af,
+   if(len >= sizeof(req.ifr_name))
+     return IF2IP_NOT_FOUND;
  
-diff -up curl-7.85.0/lib/connect.c.1~ curl-7.85.0/lib/connect.c
---- curl-7.85.0/lib/connect.c.1~	2022-08-30 18:19:21.000000000 +0200
-+++ curl-7.85.0/lib/connect.c	2022-09-28 00:16:02.170182405 +0200
-@@ -1651,7 +1651,9 @@ CURLcode Curl_socket(struct Curl_easy *d
+-  dummy = socket(AF_INET, SOCK_STREAM, 0);
++  dummy = socket(AF_INET, SOCK_STREAM|SOCK_CLOEXEC, 0);
+   if(CURL_SOCKET_BAD == dummy)
+     return IF2IP_NOT_FOUND;
+ 
+Index: curl-7.87.0/lib/connect.c
+===================================================================
+--- curl-7.87.0.orig/lib/connect.c
++++ curl-7.87.0/lib/connect.c
+@@ -1559,7 +1559,9 @@ CURLcode Curl_socket(struct Curl_easy *d
    }
    else
      /* opensocket callback not set, so simply create the socket now */
@@ -24,40 +57,32 @@ diff -up curl-7.85.0/lib/connect.c.1~ curl-7.85.0/lib/connect.c
  
    if(*sockfd == CURL_SOCKET_BAD)
      /* no socket, no connection */
-diff -up curl-7.85.0/lib/file.c.1~ curl-7.85.0/lib/file.c
---- curl-7.85.0/lib/file.c.1~	2022-08-30 18:19:21.000000000 +0200
-+++ curl-7.85.0/lib/file.c	2022-09-28 00:18:05.118792686 +0200
-@@ -222,7 +222,7 @@ static CURLcode file_connect(struct Curl
-     }
-   }
-   #else
--  fd = open_readonly(real_path, O_RDONLY);
-+  fd = open_readonly(real_path, O_RDONLY|O_CLOEXEC);
-   file->path = real_path;
-   #endif
- #endif
-@@ -307,7 +307,7 @@ static CURLcode file_upload(struct Curl_
-   else
-     mode = MODE_DEFAULT|O_TRUNC;
+Index: curl-7.87.0/configure.ac
+===================================================================
+--- curl-7.87.0.orig/configure.ac
++++ curl-7.87.0/configure.ac
+@@ -347,6 +347,8 @@ AC_DEFINE_UNQUOTED(OS, "${host}", [cpu-m
+ # Silence warning: ar: 'u' modifier ignored since 'D' is the default
+ AC_SUBST(AR_FLAGS, [cr])
  
--  fd = open(file->path, mode, data->set.new_file_perms);
-+  fd = open(file->path, mode|O_CLOEXEC, data->set.new_file_perms);
-   if(fd < 0) {
-     failf(data, "Can't open %s for writing", file->path);
-     return CURLE_WRITE_ERROR;
-diff -up curl-7.85.0/lib/hostip.c.1~ curl-7.85.0/lib/hostip.c
---- curl-7.85.0/lib/hostip.c.1~	2022-08-30 18:19:21.000000000 +0200
-+++ curl-7.85.0/lib/hostip.c	2022-09-28 00:16:02.171182410 +0200
-@@ -51,7 +51,7 @@
- #ifdef HAVE_PROCESS_H
- #include <process.h>
++AC_USE_SYSTEM_EXTENSIONS
++
+ dnl This defines _ALL_SOURCE for AIX
+ CURL_CHECK_AIX_ALL_SOURCE
+ 
+Index: curl-7.87.0/lib/hostip.c
+===================================================================
+--- curl-7.87.0.orig/lib/hostip.c
++++ curl-7.87.0/lib/hostip.c
+@@ -48,6 +48,7 @@
+ #include <signal.h>
  #endif
--
+ 
 +#include <fcntl.h>
  #include "urldata.h"
  #include "sendf.h"
  #include "hostip.h"
-@@ -551,7 +551,7 @@ bool Curl_ipv6works(struct Curl_easy *da
+@@ -576,7 +577,7 @@ bool Curl_ipv6works(struct Curl_easy *da
    else {
      int ipv6_works = -1;
      /* probe to see if we have a working IPv6 stack */
@@ -66,15 +91,3 @@ diff -up curl-7.85.0/lib/hostip.c.1~ curl-7.85.0/lib/hostip.c
      if(s == CURL_SOCKET_BAD)
        /* an IPv6 address was requested but we can't get/use one */
        ipv6_works = 0;
-diff -up curl-7.85.0/lib/if2ip.c.1~ curl-7.85.0/lib/if2ip.c
---- curl-7.85.0/lib/if2ip.c.1~	2022-08-13 18:50:57.000000000 +0200
-+++ curl-7.85.0/lib/if2ip.c	2022-09-28 00:16:02.170182405 +0200
-@@ -206,7 +206,7 @@ if2ip_result_t Curl_if2ip(int af,
-   if(len >= sizeof(req.ifr_name))
-     return IF2IP_NOT_FOUND;
- 
--  dummy = socket(AF_INET, SOCK_STREAM, 0);
-+  dummy = socket(AF_INET, SOCK_STREAM|SOCK_CLOEXEC, 0);
-   if(CURL_SOCKET_BAD == dummy)
-     return IF2IP_NOT_FOUND;
- 
