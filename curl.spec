@@ -243,9 +243,9 @@ autoreconf -fiv
 
 export CONFIGURE_TOP=$(pwd)
 
-EXTRA_CONFIG_openssl="--with-ssl --without-gnutls --without-mbedtls"
-EXTRA_CONFIG_gnutls="--without-ssl --with-gnutls --without-mbedtls"
-EXTRA_CONFIG_mbedtls="--without-ssl --without-gnutls --with-mbedtls"
+EXTRA_CONFIG_openssl="--with-openssl --without-gnutls --without-mbedtls"
+EXTRA_CONFIG_gnutls="--without-openssl --with-gnutls --without-mbedtls"
+EXTRA_CONFIG_mbedtls="--without-openssl --without-gnutls --with-mbedtls"
 
 %if %{with compat32}
 mkdir build32-openssl
