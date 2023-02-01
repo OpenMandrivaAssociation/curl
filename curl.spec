@@ -24,7 +24,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Version:	7.87.0
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		Networking/Other
 Url:		http://curl.haxx.se
@@ -320,6 +320,13 @@ rm -r docs/examples/.deps ||:
 # FIXME when we've made sure it doesn't create ABI issues, just switch
 # to cmake for the main build
 %ninja_install -C build-cmake
+
+# Try to be compatible with the legacy FindCURL.cmake file used
+# by a number of projects out there...
+cat >>%{buildroot}%{_libdir}/cmake/CURL/CURLTargets.cmake <<'EOF'
+set(CURL_LIBRARY "-lcurl")
+set(CURL_LIBRARIES "-lcurl")
+EOF
 
 %if %{with compat32}
 %make_install -C build32-openssl
