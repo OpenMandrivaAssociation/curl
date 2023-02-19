@@ -1,4 +1,4 @@
-# curl is used by systemd, libsystemd is used by wine
+# curl is used by steam
 # We don't need all the different crypto providers for the 32bit
 # builds though - one will do.
 # Let's go with openssl because it's the most common.
@@ -7,6 +7,8 @@
 %else
 %bcond_with compat32
 %endif
+
+%global optflags %{optflags} -Oz
 
 %define major 4
 %define libname %mklibname %{name}
@@ -23,8 +25,8 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	7.87.0
-Release:	2
+Version:	7.88.0
+Release:	1
 License:	BSD-like
 Group:		Networking/Other
 Url:		http://curl.haxx.se
@@ -60,7 +62,7 @@ BuildRequires:	cmake
 BuildRequires:	ninja
 Provides:	webfetch
 %if %{with compat32}
-BuildRequires: libc6
+BuildRequires:	libc6
 BuildRequires:	devel(libz)
 BuildRequires:	devel(libidn2)
 BuildRequires:	devel(libssl)
@@ -257,7 +259,7 @@ cd build32-openssl
 	--enable-hidden-symbols \
 	--enable-versioned-symbols \
 	--enable-threaded-resolver \
-	--enable-optimize \
+	--disable-optimize \
 	--enable-nonblocking \
 	--enable-thread \
 	--enable-crypto-auth \
@@ -265,6 +267,7 @@ cd build32-openssl
 	--enable-ipv6 \
 	--without-brotli \
 	--without-zstd \
+	--disable-curldebug \
 	$EXTRA_CONFIG_openssl
 %make_build
 cd ..
@@ -293,6 +296,7 @@ for ssl in openssl gnutls mbedtls; do
 		--with-gssapi=%{_prefix} \
 		--with-zstd \
 		--disable-ares \
+		--disable-curldebug \
 		$(eval echo \${EXTRA_CONFIG_$ssl})
 	%make_build
 	cd ..
