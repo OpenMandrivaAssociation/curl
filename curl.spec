@@ -25,14 +25,15 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	7.88.0
+Version:	7.88.1
 Release:	1
 License:	BSD-like
 Group:		Networking/Other
 Url:		http://curl.haxx.se
 Source0:	http://curl.haxx.se/download/%{name}-%{version}.tar.xz
 # (tpg) patches from OpenSuse
-Patch0:		libcurl-ocloexec.patch
+# (tpg) temp disable it unless Suse will publish new version of this patch
+# Patch0:		libcurl-ocloexec.patch
 Patch1:		dont-mess-with-rpmoptflags.diff
 # (tpg) from Debian
 Patch2:		04_workaround_as_needed_bug.patch
@@ -40,6 +41,7 @@ Patch4:		%{name}-7.26.0-multilib.patch
 # Try to be binary compatible with ancient versions
 # used by non-free games such as Civilization Beyond Earth
 Patch5:		curl-7.66.0-CURL_GNUTLS_3.patch
+
 BuildRequires:	groff-base
 BuildRequires:	stunnel
 BuildRequires:	patchelf
