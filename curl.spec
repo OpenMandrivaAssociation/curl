@@ -23,6 +23,21 @@
 %define lib32name libcurl%{major}
 %define dev32name libcurl-devel
 
+%bcond_without openssl
+%bcond_without gnutls
+%bcond_without mbedtls
+
+%global ssl_implementations %{nil}
+%if %{with openssl}
+%global ssl_implementations %{ssl_implementations} openssl
+%endif
+%if %{with gnutls}
+%global ssl_implementations %{ssl_implementations} gnutls
+%endif
+%if %{with mbedtls}
+%global ssl_implementations %{ssl_implementations} mbedtls
+%endif
+
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Version:	8.0.1
@@ -275,7 +290,7 @@ cd build32-openssl
 cd ..
 %endif
 
-for ssl in openssl gnutls mbedtls; do
+for ssl in %{ssl_implementations}; do
 	mkdir build-$ssl
 	cd build-$ssl
 	%configure \
@@ -338,7 +353,7 @@ EOF
 %make_install -C build32-openssl
 %endif
 
-for ssl in mbedtls gnutls openssl; do
+for ssl in %{ssl_implementations}; do
 	%make_install -C build-$ssl
 	if [ "$ssl" != "openssl" ]; then
 		pushd %{buildroot}%{_libdir}
@@ -405,11 +420,15 @@ done
 %files -n %{libname}
 %{_libdir}/libcurl.so.%{major}*
 
+%if %{with gnutls}
 %files -n %{gnutlsname}
 %{_libdir}/libcurl-gnutls.so.%{major}*
+%endif
 
+%if %{with mbedtls}
 %files -n %{mbedtlsname}
 %{_libdir}/libcurl-mbedtls.so.%{major}*
+%endif
 
 %files -n %{devname}
 %doc docs/KNOWN_BUGS docs/FAQ CHANGES
@@ -423,28 +442,38 @@ done
 %doc %{_mandir}/man1/curl-config.1*
 %doc %{_mandir}/man3/*
 
+%if %{with gnutls}
 %files -n %{gnutlsdev}
 %{_libdir}/libcurl-gnutls.so
 %{_libdir}/pkgconfig/libcurl-gnutls.pc
+%endif
 
+%if %{with mbedtls}
 %files -n %{mbedtlsdev}
 %{_libdir}/libcurl-mbedtls.so
 %{_libdir}/pkgconfig/libcurl-mbedtls.pc
+%endif
 
 %files -n %{devstatic}
 %{_libdir}/libcurl.a
 
+%if %{with gnutls}
 %files -n %{gnutlsstatic}
 %{_libdir}/libcurl-gnutls.a
+%endif
 
+%if %{with mbedtls}
 %files -n %{mbedtlsstatic}
 %{_libdir}/libcurl-mbedtls.a
+%endif
 
 %files examples
 %doc docs/examples
 
+%if ! %{cross_compiling}
 %files -n zsh-curl
 %{_datadir}/zsh/site-functions/_curl
+%endif
 
 %if %{with compat32}
 %files -n %{lib32name}
