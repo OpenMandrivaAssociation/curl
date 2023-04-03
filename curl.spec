@@ -28,14 +28,14 @@
 %bcond_without mbedtls
 
 %global ssl_implementations %{nil}
-%if %{with openssl}
-%global ssl_implementations %{ssl_implementations} openssl
+%if %{with mbedtls}
+%global ssl_implementations %{ssl_implementations} mbedtls
 %endif
 %if %{with gnutls}
 %global ssl_implementations %{ssl_implementations} gnutls
 %endif
-%if %{with mbedtls}
-%global ssl_implementations %{ssl_implementations} mbedtls
+%if %{with openssl}
+%global ssl_implementations %{ssl_implementations} openssl
 %endif
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
