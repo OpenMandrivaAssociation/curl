@@ -40,7 +40,7 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	8.0.1
+Version:	8.1.1
 Release:	1
 License:	BSD-like
 Group:		Networking/Other
