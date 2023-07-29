@@ -40,8 +40,8 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	8.1.2
-Release:	2
+Version:	8.2.1
+Release:	1
 License:	BSD-like
 Group:		Networking/Other
 Url:		http://curl.haxx.se
