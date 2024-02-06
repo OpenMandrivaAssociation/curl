@@ -40,7 +40,7 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	8.5.0
+Version:	8.6.0
 Release:	1
 License:	BSD-like
 Group:		Networking/Other
@@ -74,6 +74,7 @@ BuildRequires:	pkgconfig(libssh)
 BuildRequires:	pkgconfig(ext2fs)
 BuildRequires:	pkgconfig(libzstd)
 BuildRequires:	pkgconfig(libnghttp2)
+BuildRequires:	pkgconfig(libpsl)
 BuildRequires:	nghttp2
 BuildRequires:	cmake
 BuildRequires:	ninja
@@ -277,6 +278,7 @@ cd build32-openssl
 	--enable-versioned-symbols \
 	--enable-threaded-resolver \
 	--disable-optimize \
+	--without-libpsl \
 	--enable-nonblocking \
 	--enable-thread \
 	--enable-crypto-auth \
