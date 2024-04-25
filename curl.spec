@@ -444,7 +444,7 @@ rm -rf %{buildroot}%{_datadir}/fish
 
 %if ! %{cross_compiling}
 %files -n zsh-curl
-%{_datadir}/zsh/site-functions/_curl
+#{_datadir}/zsh/site-functions/_curl
 %endif
 
 %if %{with compat32}
