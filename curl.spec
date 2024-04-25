@@ -303,6 +303,7 @@ for ssl in %{ssl_implementations}; do
 		--with-nghttp2 \
 		--with-libssh \
 		--with-random='/dev/urandom' \
+  		--with-zsh-functions-dir" \
 		--enable-hidden-symbols \
 		--enable-versioned-symbols \
 		--enable-threaded-resolver \
@@ -444,7 +445,7 @@ rm -rf %{buildroot}%{_datadir}/fish
 
 %if ! %{cross_compiling}
 %files -n zsh-curl
-#{_datadir}/zsh/site-functions/_curl
+%{_datadir}/zsh/site-functions/_curl
 %endif
 
 %if %{with compat32}
