@@ -40,12 +40,12 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	8.6.0
+Version:	8.7.1
 Release:	1
 License:	BSD-like
 Group:		Networking/Other
-Url:		http://curl.haxx.se
-Source0:	http://curl.haxx.se/download/%{name}-%{version}.tar.xz
+Url:		https://curl.haxx.se
+Source0:	https://curl.haxx.se/download/%{name}-%{version}.tar.xz
 # (tpg) patches from OpenSuse
 # (tpg) temp disable it unless Suse will publish new version of this patch
 # Patch0:		libcurl-ocloexec.patch
@@ -303,6 +303,7 @@ for ssl in %{ssl_implementations}; do
 		--with-nghttp2 \
 		--with-libssh \
 		--with-random='/dev/urandom' \
+  		--with-zsh-functions-dir \
 		--enable-hidden-symbols \
 		--enable-versioned-symbols \
 		--enable-threaded-resolver \
