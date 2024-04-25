@@ -303,7 +303,7 @@ for ssl in %{ssl_implementations}; do
 		--with-nghttp2 \
 		--with-libssh \
 		--with-random='/dev/urandom' \
-  		--with-zsh-functions-dir" \
+  		--with-zsh-functions-dir \
 		--enable-hidden-symbols \
 		--enable-versioned-symbols \
 		--enable-threaded-resolver \
