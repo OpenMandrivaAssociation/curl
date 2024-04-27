@@ -326,8 +326,14 @@ done
 # to get cmake integration files...
 # FIXME when we've made sure it doesn't create ABI issues, just switch
 # to cmake for the main build
+# While cross-compiling, PERL_EXECUTABLE needs to be set to HOST perl, but
+# the cmake files detect TARGET perl, so override it
 export CMAKE_BUILD_DIR=build-cmake
-%cmake -G Ninja
+%cmake \
+%if %{cross_compiling}
+	-DPERL_EXECUTABLE=/usr/bin/perl \
+%endif
+	-G Ninja
 %ninja_build
 
 # we don't want them in curl-examples:
