@@ -1,3 +1,5 @@
+%global optflags %{optflags} -Wno-error -Wno-implicit-function-declaration
+
 # curl is used by steam
 # We don't need all the different crypto providers for the 32bit
 # builds though - one will do.
