@@ -52,7 +52,7 @@ Source0:	https://curl.haxx.se/download/%{name}-%{version}.tar.xz
 Patch1:		dont-mess-with-rpmoptflags.diff
 # (tpg) from Debian
 Patch2:		04_workaround_as_needed_bug.patch
-Patch4:		%{name}-7.26.0-multilib.patch
+#Patch4:		%{name}-7.26.0-multilib.patch
 # Try to be binary compatible with ancient versions
 # used by non-free games such as Civilization Beyond Earth
 Patch5:		curl-7.66.0-CURL_GNUTLS_3.patch
