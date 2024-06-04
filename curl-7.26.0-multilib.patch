@@ -1,31 +1,30 @@
-diff -rupN curl-7.59.0.old/curl-config.in curl-7.59.0/curl-config.in
---- curl-7.59.0.old/curl-config.in	2018-01-30 23:02:52.000000000 +0100
-+++ curl-7.59.0/curl-config.in	2018-04-16 19:16:30.647704720 +0200
-@@ -76,7 +76,7 @@ while test $# -gt 0; do
-         ;;
+diff -up curl-8.8.0/curl-config.in.3~ curl-8.8.0/curl-config.in
+--- curl-8.8.0/curl-config.in.3~	2024-06-03 15:42:32.484151492 +0200
++++ curl-8.8.0/curl-config.in	2024-06-03 15:44:56.618133015 +0200
+@@ -73,7 +73,7 @@ while test "$#" -gt 0; do
+     ;;
  
-     --cc)
--        echo "@CC@"
-+        echo "gcc"
-         ;;
+   --cc)
+-    echo '@CC@'
++    echo 'cc'
+     ;;
  
-     --prefix)
-@@ -155,16 +155,7 @@
-         ;;
+   --prefix)
+@@ -153,16 +153,7 @@ while test "$#" -gt 0; do
+     ;;
  
-     --libs)
--        if test "X@libdir@" != "X/usr/lib" -a "X@libdir@" != "X/usr/lib64"; then
--           CURLLIBDIR="-L@libdir@ "
--        else
--           CURLLIBDIR=""
--        fi
--        if test "X@ENABLE_SHARED@" = "Xno"; then
--          echo ${CURLLIBDIR}-lcurl @LIBCURL_LIBS@
--        else
--          echo ${CURLLIBDIR}-lcurl
--        fi
-+        pkg-config libcurl --libs
-         ;;
-     --ssl-backends)
-         echo "@SSL_BACKENDS@"
-
+   --libs)
+-    if test "X@libdir@" != "X/usr/lib" -a "X@libdir@" != "X/usr/lib64"; then
+-      CURLLIBDIR="-L@libdir@ "
+-    else
+-      CURLLIBDIR=""
+-    fi
+-    if test "X@ENABLE_SHARED@" = "Xno"; then
+-      echo "${CURLLIBDIR}-lcurl @LIBCURL_LIBS@"
+-    else
+-      echo "${CURLLIBDIR}-lcurl"
+-    fi
++    pkg-config libcurl --libs
+     ;;
+ 
+   --ssl-backends)

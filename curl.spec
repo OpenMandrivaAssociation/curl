@@ -40,7 +40,7 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	8.7.1
+Version:	8.8.0
 Release:	1
 License:	BSD-like
 Group:		Networking/Other
@@ -52,6 +52,7 @@ Source0:	https://curl.haxx.se/download/%{name}-%{version}.tar.xz
 Patch1:		dont-mess-with-rpmoptflags.diff
 # (tpg) from Debian
 Patch2:		04_workaround_as_needed_bug.patch
+Patch3:		curl-mbedtls-no-Llib.patch
 Patch4:		%{name}-7.26.0-multilib.patch
 # Try to be binary compatible with ancient versions
 # used by non-free games such as Civilization Beyond Earth
@@ -447,6 +448,7 @@ rm -rf %{buildroot}%{_datadir}/fish
 %endif
 
 %files examples
+%{_bindir}/mk-ca-bundle.pl
 %doc docs/examples
 
 %if ! %{cross_compiling}

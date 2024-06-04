@@ -1,0 +1,18 @@
+diff -up curl-8.8.0/m4/curl-mbedtls.m4.omv~ curl-8.8.0/m4/curl-mbedtls.m4
+--- curl-8.8.0/m4/curl-mbedtls.m4.omv~	2024-06-03 20:33:02.970306199 +0200
++++ curl-8.8.0/m4/curl-mbedtls.m4	2024-06-03 20:33:40.382708053 +0200
+@@ -60,11 +60,11 @@ if test "x$OPT_MBEDTLS" != xno; then
+ 
+     if test "x$USE_MBEDTLS" != "xyes"; then
+       dnl add the path and test again
+-      addld=-L$OPT_MBEDTLS/lib$libsuff
+-      addcflags=-I$OPT_MBEDTLS/include
++      #addld=-L$OPT_MBEDTLS/lib$libsuff
++      #addcflags=-I$OPT_MBEDTLS/include
+       mbedtlslib=$OPT_MBEDTLS/lib$libsuff
+ 
+-      LDFLAGS="$LDFLAGS $addld"
++      #LDFLAGS="$LDFLAGS $addld"
+       if test "$addcflags" != "-I/usr/include"; then
+          CPPFLAGS="$CPPFLAGS $addcflags"
+       fi
