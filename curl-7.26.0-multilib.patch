@@ -1,7 +1,7 @@
-diff -up curl-8.8.0/curl-config.in.3~ curl-8.8.0/curl-config.in
---- curl-8.8.0/curl-config.in.3~	2024-06-03 15:42:32.484151492 +0200
-+++ curl-8.8.0/curl-config.in	2024-06-03 15:44:56.618133015 +0200
-@@ -73,7 +73,7 @@ while test "$#" -gt 0; do
+diff -uraN curl-8.10.1/curl-config.in omv-curl-8.10.1/curl-config.in
+--- curl-8.10.1/curl-config.in	2024-09-18 07:56:40.000000000 +0200
++++ omv-curl-8.10.1/curl-config.in	2024-09-19 17:53:02.090042241 +0200
+@@ -75,7 +75,7 @@
      ;;
  
    --cc)
@@ -10,7 +10,7 @@ diff -up curl-8.8.0/curl-config.in.3~ curl-8.8.0/curl-config.in
      ;;
  
    --prefix)
-@@ -153,16 +153,7 @@ while test "$#" -gt 0; do
+@@ -155,16 +155,7 @@
      ;;
  
    --libs)
@@ -20,7 +20,7 @@ diff -up curl-8.8.0/curl-config.in.3~ curl-8.8.0/curl-config.in
 -      CURLLIBDIR=""
 -    fi
 -    if test "X@ENABLE_SHARED@" = "Xno"; then
--      echo "${CURLLIBDIR}-lcurl @LIBCURL_LIBS@"
+-      echo "${CURLLIBDIR}-lcurl @LIBCURL_PC_LIBS_PRIVATE@"
 -    else
 -      echo "${CURLLIBDIR}-lcurl"
 -    fi

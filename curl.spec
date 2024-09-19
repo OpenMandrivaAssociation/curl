@@ -40,8 +40,8 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	8.9.1
-Release:	2
+Version:	8.10.1
+Release:	1
 License:	BSD-like
 Group:		Networking/Other
 Url:		https://curl.haxx.se
@@ -411,7 +411,7 @@ rm -rf %{buildroot}%{_datadir}/fish
 %endif
 
 %files -n %{devname}
-%doc docs/KNOWN_BUGS docs/FAQ CHANGES
+%doc docs/KNOWN_BUGS docs/FAQ
 %doc docs/TODO docs/THANKS
 %{_bindir}/curl-config
 %{_libdir}/libcurl.so
