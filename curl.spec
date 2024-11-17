@@ -41,7 +41,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Version:	8.11.0
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		Networking/Other
 Url:		https://curl.haxx.se
@@ -70,12 +70,14 @@ BuildRequires:	pkgconfig(gnutls)
 BuildRequires:	pkgconfig(nettle)
 BuildRequires:	mbedtls-devel
 BuildRequires:	pkgconfig(zlib)
+BuildRequires:	pkgconfig(libbrotlidec)
 BuildRequires:	pkgconfig(libidn2)
 BuildRequires:	pkgconfig(libssh)
 BuildRequires:	pkgconfig(ext2fs)
 BuildRequires:	pkgconfig(libzstd)
 BuildRequires:	pkgconfig(libnghttp2)
 BuildRequires:	pkgconfig(libpsl)
+BuildRequires:	pkgconfig(ldap)
 BuildRequires:	nghttp2
 BuildRequires:	cmake
 BuildRequires:	ninja
