@@ -1,7 +1,7 @@
-diff -uraN curl-8.10.1/m4/curl-mbedtls.m4 omv-curl-8.10.1/m4/curl-mbedtls.m4
---- curl-8.10.1/m4/curl-mbedtls.m4	2024-09-18 07:56:40.000000000 +0200
-+++ omv-curl-8.10.1/m4/curl-mbedtls.m4	2024-09-19 17:39:27.097918096 +0200
-@@ -60,11 +60,11 @@
+diff -up curl-8.11.1/m4/curl-mbedtls.m4.3~ curl-8.11.1/m4/curl-mbedtls.m4
+--- curl-8.11.1/m4/curl-mbedtls.m4.3~	2024-12-14 21:10:59.334838080 +0100
++++ curl-8.11.1/m4/curl-mbedtls.m4	2024-12-14 21:12:12.288300312 +0100
+@@ -61,12 +61,12 @@ if test "x$OPT_MBEDTLS" != xno; then
  
      if test "x$USE_MBEDTLS" != "xyes"; then
        dnl add the path and test again
@@ -12,7 +12,9 @@ diff -uraN curl-8.10.1/m4/curl-mbedtls.m4 omv-curl-8.10.1/m4/curl-mbedtls.m4
        mbedtlslib=$OPT_MBEDTLS/lib$libsuff
  
 -      LDFLAGS="$LDFLAGS $addld"
+-      LDFLAGSPC="$LDFLAGSPC $addld"
 +      #LDFLAGS="$LDFLAGS $addld"
++      #LDFLAGSPC="$LDFLAGSPC $addld"
        if test "$addcflags" != "-I/usr/include"; then
          CPPFLAGS="$CPPFLAGS $addcflags"
        fi
