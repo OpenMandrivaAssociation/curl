@@ -1,14 +1,15 @@
-diff -up curl-8.6.0/configure.ac.1~ curl-8.6.0/configure.ac
---- curl-8.6.0/configure.ac.1~	2024-02-06 22:25:13.327989425 +0100
-+++ curl-8.6.0/configure.ac	2024-02-06 22:25:46.820348281 +0100
-@@ -504,10 +504,6 @@ dnl ************************************
+diff -up curl-8.12.0/configure.ac.1~ curl-8.12.0/configure.ac
+--- curl-8.12.0/configure.ac.1~	2025-02-05 16:36:50.171535835 +0100
++++ curl-8.12.0/configure.ac	2025-02-05 16:38:51.267239454 +0100
+@@ -500,11 +500,6 @@ if test "$curl_cv_native_windows" = "yes
+   esac
+ fi
  
- CURL_CHECK_COMPILER
- CURL_CHECK_NATIVE_WINDOWS
 -CURL_SET_COMPILER_BASIC_OPTS
 -CURL_SET_COMPILER_DEBUG_OPTS
 -CURL_SET_COMPILER_OPTIMIZE_OPTS
 -CURL_SET_COMPILER_WARNING_OPTS
- 
+-
  if test "$compiler_id" = "INTEL_UNIX_C"; then
    #
+   if test "$compiler_num" -ge "1000"; then
