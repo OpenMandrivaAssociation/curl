@@ -335,6 +335,11 @@ export CMAKE_BUILD_DIR=build-cmake
 %cmake \
 %if %{cross_compiling}
 	-DPERL_EXECUTABLE=/usr/bin/perl \
+	-DUSE_NGHTTP2:BOOL=OFF \
+	-DCURL_USE_LIBSSH2:BOOL=OFF \
+	-DCURL_BROTLI:BOOL=OFF \
+	-DCURL_DISABLE_LDAP:BOOL=ON \
+	-DCURL_DISABLE_LDAPS:BOOL=ON \
 %endif
 	-G Ninja
 %ninja_build
