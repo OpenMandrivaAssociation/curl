@@ -458,7 +458,7 @@ rm -rf %{buildroot}%{_datadir}/fish
 %endif
 
 %files examples
-%{_bindir}/mk-ca-bundle.pl
+#{_bindir}/mk-ca-bundle.pl
 %doc docs/examples
 
 %if ! %{cross_compiling}
