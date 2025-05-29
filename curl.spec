@@ -405,7 +405,9 @@ rm -rf %{buildroot}%{_datadir}/fish
 
 %files
 %{_bindir}/curl
+%{_bindir}/wcurl
 %doc %{_mandir}/man1/curl.1*
+%doc %{_mandir}/man1/wcurl.1.*
 
 %files -n %{libname}
 %{_libdir}/libcurl.so.%{major}*
