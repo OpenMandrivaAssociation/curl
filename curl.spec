@@ -40,7 +40,7 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	8.14.1
+Version:	8.15.0
 Release:	1
 License:	BSD-like
 Group:		Networking/Other
@@ -57,9 +57,6 @@ Patch4:		%{name}-7.26.0-multilib.patch
 # Try to be binary compatible with ancient versions
 # used by non-free games such as Civilization Beyond Earth
 #Patch5:		curl-7.66.0-CURL_GNUTLS_3.patch
-
-# Fix 8.14.0 regression: https://github.com/curl/curl/issues/17473
-Patch5: 0001-curl-8.14.0-multi-fix-add_handle-resizing.patch
 
 BuildRequires:	groff-base
 BuildRequires:	stunnel
@@ -432,6 +429,8 @@ rm -rf %{buildroot}%{_datadir}/fish
 %{_libdir}/cmake/CURL
 %{_datadir}/aclocal/*.m4
 %doc %{_mandir}/man1/curl-config.1*
+%doc %{_mandir}/man1/runtests.1*
+%doc %{_mandir}/man1/testcurl.1*
 %doc %{_mandir}/man3/*
 
 %if %{with gnutls}
