@@ -1,6 +1,6 @@
-diff -up curl-8.12.0/curl-config.in.4~ curl-8.12.0/curl-config.in
---- curl-8.12.0/curl-config.in.4~	2025-02-05 09:05:05.000000000 +0100
-+++ curl-8.12.0/curl-config.in	2025-02-05 21:22:13.753473407 +0100
+diff -up curl-8.16.0/curl-config.in.4~ curl-8.16.0/curl-config.in
+--- curl-8.16.0/curl-config.in.4~	2025-09-10 07:43:43.000000000 +0200
++++ curl-8.16.0/curl-config.in	2025-09-14 13:37:42.538107550 +0200
 @@ -74,7 +74,7 @@ while test "$#" -gt 0; do
      ;;
  
@@ -14,12 +14,12 @@ diff -up curl-8.12.0/curl-config.in.4~ curl-8.12.0/curl-config.in
      ;;
  
    --libs)
--    if test "X@libdir@" != 'X/usr/lib' -a "X@libdir@" != 'X/usr/lib64'; then
+-    if test "@libdir@" != '/usr/lib' -a "@libdir@" != '/usr/lib64'; then
 -      curllibdir="-L@libdir@ "
 -    else
 -      curllibdir=''
 -    fi
--    if test 'X@ENABLE_SHARED@' = 'Xno'; then
+-    if test '@ENABLE_SHARED@' = 'no'; then
 -      echo "${curllibdir}-lcurl @LIBCURL_PC_LIBS_PRIVATE@"
 -    else
 -      echo "${curllibdir}-lcurl"
