@@ -26,6 +26,7 @@
 %bcond_without openssl
 %bcond_without gnutls
 %bcond_without mbedtls
+%bcond_without kerberos
 
 %global ssl_implementations %{nil}
 %if %{with mbedtls}
@@ -61,7 +62,9 @@ Patch4:		%{name}-7.26.0-multilib.patch
 BuildRequires:	groff-base
 BuildRequires:	stunnel
 BuildRequires:	patchelf
+%if %{with kerberos}
 BuildRequires:	pkgconfig(krb5-gssapi)
+%endif
 # (tpg) we prefer OpenSSL over GnuTLS or nettle
 BuildRequires:	pkgconfig(openssl)
 # (bero) let's also build the gnutls version for
@@ -316,7 +319,11 @@ for ssl in %{ssl_implementations}; do
 		--enable-crypto-auth \
 		--enable-ipv6 \
 		--with-ca-bundle=%{_sysconfdir}/pki/tls/certs/ca-bundle.crt \
+%if %{with kerberos}
 		--with-gssapi=%{_prefix} \
+%else
+		--without-gssappi \
+%endif
 		--with-zstd \
 		--disable-ares \
 		--disable-curldebug \
@@ -462,10 +469,8 @@ rm -rf %{buildroot}%{_datadir}/fish
 #{_bindir}/mk-ca-bundle.pl
 %doc docs/examples
 
-%if ! %{cross_compiling}
 %files -n zsh-curl
 %{_datadir}/zsh/site-functions/_curl
-%endif
 
 %if %{with compat32}
 %files -n %{lib32name}
