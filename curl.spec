@@ -59,6 +59,10 @@ Patch4:		%{name}-7.26.0-multilib.patch
 # used by non-free games such as Civilization Beyond Earth
 #Patch5:		curl-7.66.0-CURL_GNUTLS_3.patch
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
 BuildRequires:	groff-base
 BuildRequires:	stunnel
 BuildRequires:	patchelf
