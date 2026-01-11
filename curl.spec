@@ -353,6 +353,11 @@ export CMAKE_BUILD_DIR=build-cmake
 	-DCURL_DISABLE_LDAPS:BOOL=ON \
 %endif
 	-G Ninja
+%if %{cross_compiling}
+# FIXME we need to identify where the various bogus
+# -I/usr/include statements come from in the longer run
+sed -i -e 's,-I/usr/include ,,g;s,-isystem /usr/include ,,g;s,-isystem /usr/include$,,' build.ninja
+%endif
 %ninja_build
 
 # we don't want them in curl-examples:
