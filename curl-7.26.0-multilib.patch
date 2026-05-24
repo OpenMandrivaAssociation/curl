@@ -1,6 +1,6 @@
-diff -up curl-8.16.0/curl-config.in.4~ curl-8.16.0/curl-config.in
---- curl-8.16.0/curl-config.in.4~	2025-09-10 07:43:43.000000000 +0200
-+++ curl-8.16.0/curl-config.in	2025-09-14 13:37:42.538107550 +0200
+diff -up curl-8.20.0/curl-config.in.4~ curl-8.20.0/curl-config.in
+--- curl-8.20.0/curl-config.in.4~	2026-04-29 07:45:57.000000000 +0200
++++ curl-8.20.0/curl-config.in	2026-05-23 18:04:39.332825633 +0200
 @@ -74,7 +74,7 @@ while test "$#" -gt 0; do
      ;;
  
@@ -14,7 +14,7 @@ diff -up curl-8.16.0/curl-config.in.4~ curl-8.16.0/curl-config.in
      ;;
  
    --libs)
--    if test "@libdir@" != '/usr/lib' -a "@libdir@" != '/usr/lib64'; then
+-    if test "@libdir@" != '/usr/lib' && test "@libdir@" != '/usr/lib64'; then
 -      curllibdir="-L@libdir@ "
 -    else
 -      curllibdir=''

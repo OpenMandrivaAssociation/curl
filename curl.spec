@@ -41,7 +41,7 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	8.17.0
+Version:	8.20.0
 Release:	1
 License:	BSD-like
 Group:		Networking/Other
@@ -436,8 +436,7 @@ rm -rf %{buildroot}%{_datadir}/fish
 %endif
 
 %files -n %{devname}
-%doc docs/KNOWN_BUGS docs/FAQ
-%doc docs/TODO docs/THANKS
+%doc docs/THANKS
 %{_bindir}/curl-config
 %{_libdir}/libcurl.so
 %{_includedir}/curl
@@ -445,8 +444,6 @@ rm -rf %{buildroot}%{_datadir}/fish
 %{_libdir}/cmake/CURL
 %{_datadir}/aclocal/*.m4
 %doc %{_mandir}/man1/curl-config.1*
-%doc %{_mandir}/man1/runtests.1*
-%doc %{_mandir}/man1/testcurl.1*
 %doc %{_mandir}/man3/*
 
 %if %{with gnutls}

@@ -1,8 +1,8 @@
-diff -up curl-8.12.0/configure.ac.1~ curl-8.12.0/configure.ac
---- curl-8.12.0/configure.ac.1~	2025-02-05 16:36:50.171535835 +0100
-+++ curl-8.12.0/configure.ac	2025-02-05 16:38:51.267239454 +0100
-@@ -500,11 +500,6 @@ if test "$curl_cv_native_windows" = "yes
-   esac
+diff -up curl-8.20.0/configure.ac.1~ curl-8.20.0/configure.ac
+--- curl-8.20.0/configure.ac.1~	2026-04-29 07:45:57.000000000 +0200
++++ curl-8.20.0/configure.ac	2026-05-23 18:02:02.971911742 +0200
+@@ -602,11 +602,6 @@ if test "$curl_cv_native_windows" = "yes
+   ])
  fi
  
 -CURL_SET_COMPILER_BASIC_OPTS
@@ -11,5 +11,5 @@ diff -up curl-8.12.0/configure.ac.1~ curl-8.12.0/configure.ac
 -CURL_SET_COMPILER_WARNING_OPTS
 -
  if test "$compiler_id" = "INTEL_UNIX_C"; then
-   #
    if test "$compiler_num" -ge "1000"; then
+     dnl icc 10.X or later
