@@ -356,7 +356,7 @@ export CMAKE_BUILD_DIR=build-cmake
 %if %{cross_compiling}
 # FIXME we need to identify where the various bogus
 # -I/usr/include statements come from in the longer run
-sed -i -e 's,-I/usr/include ,,g;s,-isystem /usr/include ,,g;s,-isystem /usr/include$,,' build.ninja
+sed -i -e 's,-I/usr/include ,,g;s,-isystem /usr/include ,,g;s,-isystem /usr/include$,,;s,-I/usr/include$,,' build.ninja
 %endif
 %ninja_build
 
