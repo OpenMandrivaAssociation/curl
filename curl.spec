@@ -62,6 +62,7 @@ Patch4:		%{name}-7.26.0-multilib.patch
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool-base
+BuildRequires:  make
 BuildRequires:	slibtool
 BuildRequires:	groff-base
 BuildRequires:	stunnel
