@@ -1,0 +1,14 @@
+diff -up curl-8.20.0/configure.ac.omv~ curl-8.20.0/configure.ac
+--- curl-8.20.0/configure.ac.omv~	2026-06-07 23:18:49.820760250 +0200
++++ curl-8.20.0/configure.ac	2026-06-07 23:19:38.985082808 +0200
+@@ -2724,7 +2724,9 @@ AS_HELP_STRING([--disable-versioned-symb
+   *)
+     AC_MSG_RESULT(yes)
+     AC_MSG_CHECKING([if libraries can be versioned])
+-    GLD=`$LD --help < /dev/null 2>/dev/null | grep version-script`
++    TEST_LD="$LD"
++    if test -z "$TEST_LD"; then TEST_LD="ld"; fi
++    GLD=`$TEST_LD --help < /dev/null 2>/dev/null | grep version-script`
+     if test -z "$GLD"; then
+       AC_MSG_RESULT(no)
+       AC_MSG_WARN([You need an ld version supporting the --version-script option])
