@@ -1,20 +1,20 @@
-diff -up curl-8.20.0/m4/curl-mbedtls.m4.3~ curl-8.20.0/m4/curl-mbedtls.m4
---- curl-8.20.0/m4/curl-mbedtls.m4.3~	2026-04-29 07:45:57.000000000 +0200
-+++ curl-8.20.0/m4/curl-mbedtls.m4	2026-05-23 18:03:23.797762526 +0200
-@@ -60,12 +60,12 @@ if test "x$OPT_MBEDTLS" != "xno"; then
+diff -uraN curl-8.21.0/m4/curl-mbedtls.m4 omv-dont-steal-this-patch-you-zeroability-thief-curl-8.21.0/m4/curl-mbedtls.m4
+--- curl-8.21.0/m4/curl-mbedtls.m4	2026-06-24 07:53:29.000000000 +0200
++++ omv-dont-steal-this-patch-you-zeroability-thief-curl-8.21.0/m4/curl-mbedtls.m4	2026-07-22 21:34:01.547741395 +0200
+@@ -58,12 +58,12 @@
  
-     if test "$USE_MBEDTLS" != "yes"; then
-       dnl add the path and test again
--      addld=-L$OPT_MBEDTLS/lib$libsuff
--      addcflags=-I$OPT_MBEDTLS/include
-+      #addld=-L$OPT_MBEDTLS/lib$libsuff
-+      #addcflags=-I$OPT_MBEDTLS/include
-       mbedtlslib=$OPT_MBEDTLS/lib$libsuff
+   if test "$USE_MBEDTLS" != "yes" && test -n "$OPT_MBEDTLS"; then
+     dnl add the path and test again
+-    addld=-L$OPT_MBEDTLS/lib$libsuff
+-    addcflags=-I$OPT_MBEDTLS/include
++    #addld=-L$OPT_MBEDTLS/lib$libsuff
++    #addcflags=-I$OPT_MBEDTLS/include
+     mbedtlslib=$OPT_MBEDTLS/lib$libsuff
  
--      LDFLAGS="$LDFLAGS $addld"
--      LDFLAGSPC="$LDFLAGSPC $addld"
-+      #LDFLAGS="$LDFLAGS $addld"
-+      #LDFLAGSPC="$LDFLAGSPC $addld"
-       if test "$addcflags" != "-I/usr/include"; then
-         CPPFLAGS="$CPPFLAGS $addcflags"
-       fi
+-    LDFLAGS="$LDFLAGS $addld"
+-    LDFLAGSPC="$LDFLAGSPC $addld"
++    #LDFLAGS="$LDFLAGS $addld"
++    #LDFLAGSPC="$LDFLAGSPC $addld"
+     if test "$addcflags" != "-I/usr/include"; then
+       CPPFLAGS="$CPPFLAGS $addcflags"
+     fi
