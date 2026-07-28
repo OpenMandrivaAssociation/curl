@@ -42,7 +42,7 @@
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Version:	8.21.0
-Release:	1
+Release:	2
 License:	BSD-like
 Group:		Networking/Other
 Url:		https://curl.haxx.se
@@ -151,6 +151,12 @@ Summary:	Header files and static libraries for libcurl
 Group:		Development/C
 Requires:	%{name} = %{EVRD}
 Requires:	%{libname} = %{EVRD}
+# CURLConfig.cmake does find_dependency(LDAP MODULE). Shipping FindLDAP.cmake
+# makes rpm auto-generate both Provides and Requires for cmake(LDAP), which
+# self-satisfies without pulling openldap-devel — then consumers of
+# find_package(CURL) fail at configure time. Require the real LDAP devel.
+Requires:	pkgconfig(ldap)
+Requires:	pkgconfig(lber)
 Provides:	%{name}-devel = %{EVRD}
 
 %description -n %{devname}
