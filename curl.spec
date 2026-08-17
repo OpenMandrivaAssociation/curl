@@ -43,6 +43,8 @@ Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
 Version:	8.21.0
 Release:	3
+# dwz can leave unpackaged *.debug.#dwz#* temps
+%global _find_debuginfo_dwz_opts %{nil}
 License:	BSD-like
 Group:		Networking/Other
 Url:		https://curl.haxx.se
