@@ -295,6 +295,9 @@ EXTRA_CONFIG_mbedtls="--without-openssl --without-gnutls --with-mbedtls"
 mkdir build32-openssl
 cd build32-openssl
 # clang -m32 otherwise loads /etc/clang/i686*.cfg (--sysroot), hiding /usr/lib
+_save_cflags="$CFLAGS"
+_save_cxxflags="$CXXFLAGS"
+_save_ldflags="$LDFLAGS"
 export CFLAGS="${CFLAGS} --no-default-config"
 export CXXFLAGS="${CXXFLAGS} --no-default-config"
 export LDFLAGS="${LDFLAGS} --no-default-config"
@@ -318,6 +321,10 @@ export LDFLAGS="${LDFLAGS} --no-default-config"
 	$EXTRA_CONFIG_openssl
 %make_build
 cd ..
+export CFLAGS="$_save_cflags"
+export CXXFLAGS="$_save_cxxflags"
+export LDFLAGS="$_save_ldflags"
+unset _save_cflags _save_cxxflags _save_ldflags
 %endif
 
 for ssl in %{ssl_implementations}; do
