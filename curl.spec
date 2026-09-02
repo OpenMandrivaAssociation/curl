@@ -294,9 +294,10 @@ EXTRA_CONFIG_mbedtls="--without-openssl --without-gnutls --with-mbedtls"
 %if %{with compat32}
 mkdir build32-openssl
 cd build32-openssl
-# clang -m32 uses the i686 sysroot; host headers/libs stay under /usr
-export CPPFLAGS="${CPPFLAGS} -isystem %{_includedir}"
-export LDFLAGS="${LDFLAGS} -Wl,--sysroot=/"
+# clang -m32 otherwise loads /etc/clang/i686*.cfg (--sysroot), hiding /usr/lib
+export CFLAGS="${CFLAGS} --no-default-config"
+export CXXFLAGS="${CXXFLAGS} --no-default-config"
+export LDFLAGS="${LDFLAGS} --no-default-config"
 %configure32 \
 	--with-zlib \
 	--with-libidn2 \
