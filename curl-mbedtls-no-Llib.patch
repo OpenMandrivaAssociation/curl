@@ -1,6 +1,6 @@
-diff -uraN curl-8.21.0/m4/curl-mbedtls.m4 omv-dont-steal-this-patch-you-zeroability-thief-curl-8.21.0/m4/curl-mbedtls.m4
---- curl-8.21.0/m4/curl-mbedtls.m4	2026-06-24 07:53:29.000000000 +0200
-+++ omv-dont-steal-this-patch-you-zeroability-thief-curl-8.21.0/m4/curl-mbedtls.m4	2026-07-22 21:34:01.547741395 +0200
+diff -uraN curl-8.22.0/m4/curl-mbedtls.m4 omv-dont-steal-this-patch-you-zeroability-thief-curl-8.22.0/m4/curl-mbedtls.m4
+--- curl-8.22.0/m4/curl-mbedtls.m4	2026-09-02 00:00:00.000000000 +0000
++++ omv-dont-steal-this-patch-you-zeroability-thief-curl-8.22.0/m4/curl-mbedtls.m4	2026-09-02 00:00:00.000000000 +0000
 @@ -58,12 +58,12 @@
  
    if test "$USE_MBEDTLS" != "yes" && test -n "$OPT_MBEDTLS"; then
