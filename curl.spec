@@ -93,6 +93,11 @@ BuildRequires:	cmake
 BuildRequires:	ninja
 Provides:	webfetch
 %if %{with compat32}
+BuildRequires:	cross-i686-openmandriva-linux-gnu-clang
+BuildRequires:	cross-i686-openmandriva-linux-gnu-libc
+BuildRequires:	cross-i686-openmandriva-linux-gnu-gcc
+BuildRequires:	cross-i686-openmandriva-linux-gnu-binutils
+BuildRequires:	atomic-devel
 BuildRequires:	libc6
 BuildRequires:	devel(libz)
 BuildRequires:	devel(libidn2)
