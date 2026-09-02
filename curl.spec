@@ -294,6 +294,8 @@ EXTRA_CONFIG_mbedtls="--without-openssl --without-gnutls --with-mbedtls"
 %if %{with compat32}
 mkdir build32-openssl
 cd build32-openssl
+# clang -m32 uses the i686 sysroot; host headers stay in /usr/include
+export CPPFLAGS="${CPPFLAGS} -isystem %{_includedir}"
 %configure32 \
 	--with-zlib \
 	--with-libidn2 \
