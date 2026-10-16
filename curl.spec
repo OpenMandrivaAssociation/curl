@@ -41,7 +41,7 @@
 
 Summary:	Gets a file from a FTP, GOPHER or HTTP server
 Name:		curl
-Version:	8.22.0
+Version:	8.23.0
 Release:	1
 # dwz can leave unpackaged *.debug.#dwz#* temps
 %global _find_debuginfo_dwz_opts %{nil}
